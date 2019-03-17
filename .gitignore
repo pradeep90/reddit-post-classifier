@@ -1,0 +1,4 @@
+auto/
+*.aux
+*.log
+/proposal/data-mining-project-proposal.bbl
