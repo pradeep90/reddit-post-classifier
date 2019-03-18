@@ -68,13 +68,13 @@
 \isbn{123-4567-24-567/08/06}
 
 %Conference
-\conferenceinfo{PLDI '13}{June 16--19, 2013, Seattle, WA, USA}
+%% \conferenceinfo{PLDI '13}{June 16--19, 2013, Seattle, WA, USA}
 
 \acmPrice{\$15.00}
 
 %
 % --- Author Metadata here ---
-\conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
+%% \conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
 %\CopyrightYear{2007} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
@@ -201,7 +201,7 @@ We plan to work on a large text classification problem, specifically the Reddit 
 % We no longer use \terms command
 %\terms{Theory}
 
-\keywords{ACM proceedings; \LaTeX; text tagging}
+\keywords{NLP; large text classification; multi-class classification}
 
 \section{Introduction}
 
@@ -217,35 +217,37 @@ We plan to work on a large text classification problem, specifically the Reddit 
 % + Your project timeline (e.g., how much time will you spend on each of the activities you
 % plan to conduct for your project?)
 
-Text classification with few classes, such as in sentiment analysis, has been well-studied [TODO] with state-of-the-art techniques like LSTM. However, those techniques do not always work as well in scenarios with many classes [TODO]. Another issue with training on many-class datasets is that they have a very large number of labels [TODO] and are sparse - most labels have very few examples [TODO].
+Text classification with few classes, such as in sentiment analysis, has been well-studied \cite{sentiment-analysis} with state-of-the-art techniques like LSTM. However, those techniques do not always work as well in scenarios with many classes \cite{many-classes}. Another issue with training on many-class datasets is that they have a very large number of labels (such as WikiLSHTC-325K dataset \cite{partalas2015lshtc}, which has 325K labels) and are sparse - most labels in the above dataset have less than 100 examples \cite{jonesreddit}.
 
-Reddit Self-Post Classification Task (RSPCT) is a text corpus containing self-posts (i.e., text posts) from Reddit. RSPCT was collected to help spur research on models that could tackle a large number of classes by ensuring a large population of examples for each class (currently, around 1000 examples for each class) and a large number of classes (around 1000). The aim is to allow for a situation comparable to that in the computer vision community, which was helped by the famous ILSRVC competition (ImageNet [TODO]) with 1000 classes and around 1400 examples per class. This potential is what made us find this project interesting.
+Reddit Self-Post Classification Task (RSPCT) is a text corpus containing self-posts (i.e., text posts) from Reddit. RSPCT was collected to help spur research on models that could tackle a large number of classes by ensuring a large population of examples for each class (currently, around 1000 examples for each class) and a large number of classes (around 1000). The aim is to allow for a situation comparable to that in the computer vision community, which was helped by the famous ILSRVC competition (ImageNet \cite{imagenet}) with 1000 classes and around 1400 examples per class. This potential is what made us find this project interesting.
 
-TODO: Why is this a useful problem to solve? How is our approach innovative?
+We think this is a useful problem to solve because it has not been adequately studied, to the best of our knowledge, and because this could pave the way to future work on such many-class datasets. We hope to try both traditional and deep learning models so that we get a good sense of their relative performance on such datasets.
 
 \section{Plans for Exploratory Analysis}
 
 In order to explore the data and get a feel of it, we intend on using different methods. We will be plotting several histograms to get to know the median length of the subreddits in terms of both words and characters in the subreddits. We hope to get a deeper understanding of the lengths of the subreddits in general using this method. Because the dataset contains thousands of different words and each word is a possible feature, we will be using t-Distributed Stochastic Neighbor Embedding (t-SNE)\cite{tsne} for visualizing this high-dimensional dataset.
 
-We plan on first training and testing our models based on this data as it is and later experimenting by adding new features like the sentiment and reading level of each subreddit. The dataset currently does not provide any information regarding the sentiment of each post and subreddit. We want to use TextBlob\cite{textblob}, or a better alternative if we find one, to get the median sentiment value of each subreddit. We will then be able to use this to determine which subreddit a new post can belong to given its sentiment value. Similarly, we plan on using a text readability tool to determine the readability score\cite{readability} for a certain subreddit and use the text readability of a new post to determine its label.
+We plan on first training and testing our models based on this data as it is and later experimenting by adding new features like the sentiment and reading level of each subreddit. The dataset currently does not provide any information regarding the sentiment of each post and subreddit. We want to use TextBlob\cite{textblob}, or a better alternative if we find one, to get the median sentiment value of each subreddit. We will then be able to use this to determine which subreddit a new post can belong to given its sentiment value.
+
+%% Similarly, we plan on using a text readability tool to determine the readability score\cite{readability} for a certain subreddit and use the text readability of a new post to determine its label.
 
 \section{Algorithms we aim to Implement}
 
 We aim to implement two traditional classification algorithms and one deep learning algorithm.
 
-First, we plan to use Naive Bayes classification because of its simplicity and past track record in multi-class text classification [TODO]. This will provide us with a good baseline against which to test the other models. Just in case, we will also use a trivial classifier (one that predicts classes at random) as another baseline.
+First, we plan to use Naive Bayes classification because of its simplicity and past track record in multi-class text classification \cite{rennie2001:improving}. This will provide us with a good baseline against which to test the other models. Just in case, we will also use a trivial classifier (one that predicts classes at random) as another baseline.
 
-Second, we plan to use logistic regression with a bag-of-words model [TODO] based on word n-grams and character n-grams. Since we are not sure if logistic regression or SVM will be better suited to this problem, we plan to answer this question using our literature review. If prior research suggests SVM performs better on large text classification, we may switch to it.
+Second, we plan to use logistic regression with a bag-of-words model based on word n-grams and character n-grams \cite{logistic-regression:bag-of-words}. Since we are not sure if logistic regression or SVM will be better suited to this problem, we plan to answer this question using our literature review. If prior research suggests SVM performs better on large text classification, we may switch to it.
 
 Lastly, we plan to use Convolutional Neural Networks (CNN) to test whether deep learning models can outperform the traditional models on text classification problems with many classes. Again, we will check if the existing literature recommends other deep learning algorithms for text classification and may switch to something like RNN.
 
 \section{Proposed Experiments}
 
-On top of the previous three algorithms, we will experiment with adding a new feature - the sentiment of the text (which we will compute using a pre-trained, off-the-shelf model) - to see if improves performance.
+On top of the previous three algorithms, we will experiment with adding a new feature - the sentiment of the text (which we will compute using a pre-trained, off-the-shelf model \cite{textblob}) - to see if it improves performance.
 
 \section{Evaluation of our Project}
 
-The key metric for the models will be the Precision-at-K metric [TODO], since this is a problem with a very large number of classes and we don't expect the correct label to be predicted as the top option. We will measure the precision on the top-1, top-3, and top-5 labels. As mentioned before, we will also experiment with adding a new feature for sentiment rating of the text to see if that improves performance. To understand the impact of the title on classification, we will measure performance by training and testing on just the titles of the posts, just the bodies of the posts, and then with both title and body.
+The key metric for the models will be the Precision-at-K metric \cite{krizhevsky2012imagenet}, since this is a problem with a very large number of classes and we don't expect the correct label to be predicted as the top option. We will measure the precision on the top-1, top-3, and top-5 labels. As mentioned before, we will also experiment with adding a new feature for sentiment rating of the text to see if that improves performance. To understand the impact of the title on classification, we will measure performance by training and testing on just the titles of the posts, just the bodies of the posts, and then with both title and body.
 
 %% Finally, we will do a little qualitative evaluation by contrasting one or two posts for which our model confidently predicts the wrong category.
 
@@ -261,26 +263,9 @@ Week 4: We will tune our hyperparameters to get the best performance on the vali
 
 Week 5: We will spend this week writing our report and presentation (and finishing any work that is left from the previous weeks).
 
-\subsection{Citations}
-Citations to articles \cite{bowman:reasoning,
-clark:pct, braams:babel, herlihy:methodology},
-conference proceedings \cite{clark:pct} or
-books \cite{salas:calculus, Lamport:LaTeX} listed
-in the Bibliography section of your
-article will occur throughout the text of your article.
-You should use BibTeX to automatically produce this bibliography;
-you simply need to insert one of several citation commands with
-a key of the item cited in the proper location in
-the \texttt{.tex} file \cite{Lamport:LaTeX}.
-The key is a short reference you invent to uniquely
-identify each work; in this sample document, the key is
-the first author's surname and a
-word from the title.  This identifying key is included
-with each item in the \texttt{.bib} file for your article.
-
 \section{Conclusions}
 
-TODO
+In conclusion, we think this would be a interesting attack on the problem of large text classification with many classes. The fact that we are covering both traditional and deep learning models will help us judge which models are likely to work well on these kinds of datasets. The models we train could find use in judging posts that are off-topic to a particular subreddit and might suggest more suitable subreddits. With more data, we could transfer this approach to classifying news articles by subgenres or blog posts by topic.
 
 %\end{document}  % This is where a 'short' article might terminate
 
@@ -296,7 +281,7 @@ TODO
 % to resolve all references
 %
 % ACM needs 'a single self-contained file'!
-\subsection{References}
+%% \subsection{References}
 
 \end{document}
 
