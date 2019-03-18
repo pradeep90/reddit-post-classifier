@@ -216,9 +216,9 @@ We plan to work on a large text classification problem, specifically the Reddit 
 % + Your project timeline (e.g., how much time will you spend on each of the activities you
 % plan to conduct for your project?)
 
-Reddit Self-Post Classification Task (RSPCT) is a text corpus containing self-posts (i.e., text posts) from Reddit. Text classification with few classes, such as in sentiment analysis, has been well-studied [TODO] with state-of-the-art techniques like LSTM. However, those techniques do not always work as well in scenarios with many classes [TODO]. Another issue with training on many-class datasets is that they have a very large number of labels [TODO] and are sparse - most labels have very few examples [TODO].
+Text classification with few classes, such as in sentiment analysis, has been well-studied [TODO] with state-of-the-art techniques like LSTM. However, those techniques do not always work as well in scenarios with many classes [TODO]. Another issue with training on many-class datasets is that they have a very large number of labels [TODO] and are sparse - most labels have very few examples [TODO].
 
-RSPCT was collected to help spur research on models that could tackle a large number of classes by ensuring a large population of examples for each class (currently, around 1000 examples for each class) and a large number of classes (around 1000). The aim is to allow for a situation comparable to that in the computer vision community, which was helped by the famous ILSRVC competition (ImageNet [TODO]) with 1000 classes and around 1400 examples per class. This potential is what made us find this project interesting.
+Reddit Self-Post Classification Task (RSPCT) is a text corpus containing self-posts (i.e., text posts) from Reddit. RSPCT was collected to help spur research on models that could tackle a large number of classes by ensuring a large population of examples for each class (currently, around 1000 examples for each class) and a large number of classes (around 1000). The aim is to allow for a situation comparable to that in the computer vision community, which was helped by the famous ILSRVC competition (ImageNet [TODO]) with 1000 classes and around 1400 examples per class. This potential is what made us find this project interesting.
 
 TODO: Why is this a useful problem to solve? How is our approach innovative?
 
@@ -226,38 +226,35 @@ TODO: Why is this a useful problem to solve? How is our approach innovative?
 
 \section{Algorithms we aim to Implement}
 
+We aim to implement two traditional classification algorithms and one deep learning algorithm.
+
+First, we plan to use Naive Bayes classification because of its simplicity and past track record in multi-class text classification [TODO]. This will provide us with a good baseline against which to test the other models. Just in case, we will also use a trivial classifier (one that predicts classes at random) as another baseline.
+
+Second, we plan to use logistic regression with a bag-of-words model [TODO] based on word n-grams and character n-grams. Since we are not sure if logistic regression or SVM will be better suited to this problem, we plan to answer this question using our literature review. If prior research suggests SVM performs better on large text classification, we may switch to it.
+
+Lastly, we plan to use Convolutional Neural Networks (CNN) to test whether deep learning models can outperform the traditional models on text classification problems with many classes. Again, we will check if the existing literature recommends other deep learning algorithms for text classification and may switch to something like RNN.
+
+\section{Proposed Experiments}
+
+On top of the previous three algorithms, we will experiment with adding a new feature - the sentiment of the text (which we will compute using a pre-trained, off-the-shelf model) - to see if improves performance.
+
 \section{Evaluation of our Project}
+
+The key metric for the models will be the Precision-at-K metric [TODO], since this is a problem with a very large number of classes and we don't expect the correct label to be predicted as the top option. We will measure the precision on the top-1, top-3, and top-5 labels. As mentioned before, we will also experiment with adding a new feature for sentiment rating of the text to see if that improves performance. To understand the impact of the title on classification, we will measure performance by training and testing on just the titles of the posts, just the bodies of the posts, and then with both title and body.
+
+%% Finally, we will do a little qualitative evaluation by contrasting one or two posts for which our model confidently predicts the wrong category.
+
+In addition, for the deep learning model, we will plot the loss and accuracy curves vs number of epochs. For the traditional models, we will plot the learning curve vs training set size.
 
 \section{Timeline}
 
-Typically, the body of a paper is organized
-into a hierarchical structure, with numbered or unnumbered
-headings for sections, subsections, sub-subsections, and even
-smaller sections.  The command \texttt{{\char'134}section} that
-precedes this paragraph is part of such a
-hierarchy.\footnote{This is the second footnote.  It
-starts a series of three footnotes that add nothing
-informational, but just give an idea of how footnotes work
-and look. It is a wordy one, just so you see
-how a longish one plays out.} \LaTeX\ handles the numbering
-and placement of these headings for you, when you use
-the appropriate heading commands around the titles
-of the headings.  If you want a sub-subsection or
-smaller part to be unnumbered in your output, simply append an
-asterisk to the command name.  Examples of both
-numbered and unnumbered headings will appear throughout the
-balance of this sample document.
+Week 1: We will do exploratory data analysis and study the literature to learn the strengths and weaknesses of past approaches towards large text classification.
 
-\subsection{Math Equations}
-You may want to display math equations in three distinct styles:
-inline, numbered or non-numbered display.  Each of
-the three are discussed in the next sections.
+Week 2 and Week 3: We will implement and train the different models.
 
-\subsubsection{Display Equations}
-A numbered display equation -- one set off by vertical space
-from the text and centered horizontally -- is produced
-by the \textbf{equation} environment. An unnumbered display
-equation is produced by the \textbf{displaymath} environment.
+Week 4: We will tune our hyperparameters to get the best performance on the validation sets. We hope to finetune variables like learning rate, batch size, and number of epochs.
+
+Week 5: We will spend this week writing our report and presentation (and finishing any work that is left from the previous weeks).
 
 \subsection{Citations}
 Citations to articles \cite{bowman:reasoning,
@@ -276,42 +273,11 @@ the first author's surname and a
 word from the title.  This identifying key is included
 with each item in the \texttt{.bib} file for your article.
 
-\subsection{Figures}
-Like tables, figures cannot be split across pages; the
-best placement for them
-is typically the top or the bottom of the page nearest
-their initial cite.  To ensure this proper ``floating'' placement
-of figures, use the environment
-
-\subsection{Theorem-like Constructs}
-Other common constructs that may occur in your article are
-the forms for logical constructs like theorems, axioms,
-corollaries and proofs.  There are
-two forms, one produced by the
-command \texttt{{\char'134}newtheorem} and the
-other by the command \texttt{{\char'134}newdef}; perhaps
-the clearest and easiest way to distinguish them is
-to compare the two in the output of this sample document:
-
 \section{Conclusions}
-This paragraph will end the body of this sample document.
-Remember that you might still have Acknowledgments or
-Appendices; brief samples of these
-follow.  There is still the Bibliography to deal with; and
-we will make a disclaimer about that here: with the exception
-of the reference to the \LaTeX\ book, the citations in
-this paper are to articles which have nothing to
-do with the present subject and are used as
-examples only.
-%\end{document}  % This is where a 'short' article might terminate
 
-\section{Acknowledgments}
-This section is optional; it is a location for you
-to acknowledge grants, funding, editing assistance and
-what have you.  In the present case, for example, the
-authors would like to thank Gerald Murray of ACM for
-his help in codifying this \textit{Author's Guide}
-and the \textbf{.cls} and \textbf{.tex} files that it describes.
+TODO
+
+%\end{document}  % This is where a 'short' article might terminate
 
 %
 % The following two commands are all you need in the
@@ -326,11 +292,7 @@ and the \textbf{.cls} and \textbf{.tex} files that it describes.
 %
 % ACM needs 'a single self-contained file'!
 \subsection{References}
-Generated by bibtex from your ~.bib file.  Run latex,
-then bibtex, then latex twice (to resolve references)
-to create the ~.bbl file.  Insert that ~.bbl file into
-the .tex source file and comment out
-the command \texttt{{\char'134}thebibliography}.
+
 \end{document}
 
 %%% Local Variables:
