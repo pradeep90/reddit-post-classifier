@@ -47,6 +47,7 @@
 
 \documentclass{sig-alternate-05-2015}
 
+\usepackage{hyperref}
 
 \begin{document}
 
@@ -223,6 +224,10 @@ Reddit Self-Post Classification Task (RSPCT) is a text corpus containing self-po
 TODO: Why is this a useful problem to solve? How is our approach innovative?
 
 \section{Plans for Exploratory Analysis}
+
+In order to explore the data and get a feel of it, we intend on using different methods. We will be plotting several histograms to get to know the median length of the subreddits in terms of both words and characters in the subreddits. We hope to get a deeper understanding of the lengths of the subreddits in general using this method. Because the dataset contains thousands of different words and each word is a possible feature, we will be using t-Distributed Stochastic Neighbor Embedding (t-SNE)\cite{tsne} for visualizing this high-dimensional dataset.
+
+We plan on first training and testing our models based on this data as it is and later experimenting by adding new features like the sentiment and reading level of each subreddit. The dataset currently does not provide any information regarding the sentiment of each post and subreddit. We want to use TextBlob\cite{textblob}, or a better alternative if we find one, to get the median sentiment value of each subreddit. We will then be able to use this to determine which subreddit a new post can belong to given its sentiment value. Similarly, we plan on using a text readability tool to determine the readability score\cite{readability} for a certain subreddit and use the text readability of a new post to determine its label.
 
 \section{Algorithms we aim to Implement}
 
