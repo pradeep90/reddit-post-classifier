@@ -14,5 +14,9 @@ install_packages:
 freeze:
 	$(VENV)/pip freeze > requirements.txt
 
+.PHONY: explore
+explore: src/explore_data.py
+	$(PYTHON) $^
+
 .PHONY: all
 all: test report
