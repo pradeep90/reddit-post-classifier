@@ -2,6 +2,9 @@ VENV := venv/bin
 PYTHON := $(VENV)/python
 UNAME := $(shell uname -n)
 
+test: src/utils.py
+	$(PYTHON) -m unittest src.utils.UtilsTest
+
 .PHONY: set_up_venv
 set_up_venv:
 	python3 -m venv venv
