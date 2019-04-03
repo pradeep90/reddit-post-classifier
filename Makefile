@@ -18,5 +18,9 @@ freeze:
 explore: src/explore_data.py
 	$(PYTHON) $^
 
+.PHONY: kaggle_nbc
+kaggle_nbc: src/kaggle_nbc.py
+	$(PYTHON) $^
+
 .PHONY: all
 all: test report

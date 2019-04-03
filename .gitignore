@@ -6,3 +6,5 @@ data/
 *.blg
 *.out
 /venv/
+/src/__pycache__/
+/logs/
