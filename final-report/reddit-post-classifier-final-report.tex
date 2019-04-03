@@ -49,6 +49,37 @@
 
 \usepackage{hyperref}
 
+\usepackage{lmodern}
+%% \usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+
+\usepackage{graphicx}
+%% To recognize filenames with extra dots: foo.bar.jpg.
+\usepackage{grffile}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{subcaption}
+
+% \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+% \usepackage{sectsty} % Allows customizing section commands
+%% \allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+%% For code
+\usepackage{listings}
+\usepackage{verbatim}
+
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+  colorlinks,
+  linkcolor={red!50!black},
+  citecolor={blue!50!black},
+  urlcolor={blue!80!black}
+}
+
 \begin{document}
 
 % Copyright
@@ -208,6 +239,22 @@ We plan to work on a large text classification problem, specifically the Reddit 
 \section{Plans for Exploratory Analysis}
 
 We will use techniques described in \cite{google:exploratory-analysis}.
+
+\begin{verbatim}
+Number of words per sample: 99.0
+\end{verbatim}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../plots/sample-length-distribution-1000000.png}
+\caption{Distribution of sample length (in characters)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../plots/ngram-frequency-distribution-100000.png}
+\caption{Frequency distribution of n-grams}
+\end{figure}
 
 \section{Algorithms we aim to Implement}
 

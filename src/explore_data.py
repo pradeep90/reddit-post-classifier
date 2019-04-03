@@ -61,7 +61,8 @@ def get_num_words_per_sample(sample_texts):
 
 def plot_frequency_distribution_of_ngrams(sample_texts,
                                           ngram_range=(1, 2),
-                                          num_ngrams=50):
+                                          num_ngrams=50,
+                                          plot_name='ngram-frequency-distribution.png'):
     """Plots the frequency distribution of n-grams.
     # Arguments
         samples_texts: list, sample texts.
@@ -105,21 +106,22 @@ def plot_frequency_distribution_of_ngrams(sample_texts,
     plt.xlabel('N-grams')
     plt.ylabel('Frequencies')
     plt.title('Frequency distribution of n-grams')
-    plt.xticks(idx, ngrams, rotation=45)
-    plt.show()
+    plt.xticks(idx[::4], ngrams[::4], rotation=45)
+    plt.savefig(plot_name)
+    plt.close()
 
-
-def plot_sample_length_distribution(sample_texts):
+def plot_sample_length_distribution(sample_texts,
+                                    plot_name='sample-length-distribution.png'):
     """Plots the sample length distribution.
     # Arguments
         samples_texts: list, sample texts.
     """
     plt.hist([len(s) for s in sample_texts], 50)
-    plt.xlabel('Length of a sample')
+    plt.xlabel('Length of a sample (in characters)')
     plt.ylabel('Number of samples')
     plt.title('Sample length distribution')
-    plt.show()
-
+    plt.savefig(plot_name)
+    plt.close()
 
 def plot_class_distribution(labels):
     """Plots the class distribution.
@@ -143,7 +145,17 @@ def main():
     # Assumption: We are running this file from the root of the project.
     dataset_file_name = 'data/rspct.tsv'
     df = read_csv(dataset_file_name, sep='\t')
-    print(df.describe())
+
+    num_words_per_sample = get_num_words_per_sample(df['selftext'])
+    print(f'Number of words per sample: {num_words_per_sample}')
+
+    num_points = 100000
+    # num_points = 100
+    plot_frequency_distribution_of_ngrams(df['selftext'].head(num_points),
+                                          plot_name=f'plots/ngram-frequency-distribution-{num_points}.png',
+                                          num_ngrams=50)
+    num_points = 1000000
+    plot_sample_length_distribution(df['selftext'].head(num_points), plot_name=f'plots/sample-length-distribution-{num_points}.png')
 
 if __name__ == '__main__':
     main()
