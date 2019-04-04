@@ -1,0 +1,9 @@
+NBC (200k points)
+precision@1 = 0.5346
+precision@3 = 0.68945
+precision@5 = 0.747975
+
+LogisticRegression (100k points; 47m to train; 1013 rounds of convergence @ 2.78s per round):
+precision@1 = 0.50875
+precision@3 = 0.6624
+precision@5 = 0.7147

@@ -11,14 +11,13 @@ import os
 # rather than storing everything in RAM, but we won't explore that here
 RUNNING_KAGGLE_KERNEL = True
 
-['rspct.tsv', 'subreddit_info.csv']
-
 rspct_df = pd.read_csv('data/rspct.tsv', sep='\t')
+
 info_df  = pd.read_csv('data/subreddit_info.csv')
 
 # Basic data analysis
 
-print(rspct_df.head(5))
+# print(rspct_df.head(5))
 
 # 	id 	subreddit 	title 	selftext
 # 0 	6d8knd 	talesfromtechsupport 	Remember your command line switches... 	Hi there, <lb>The usual. Long time lerker, fi...
@@ -31,7 +30,7 @@ print(rspct_df.head(5))
 # we filter them out here
 
 info_df = info_df[info_df.in_data].reset_index()
-print(info_df.head(5))
+# print(info_df.head(5))
 
 # 	index 	subreddit 	category_1 	category_2 	category_3 	in_data 	reason_for_exclusion
 # 0 	0 	whatsthatbook 	advice/question 	book 	NaN 	True 	NaN
@@ -55,12 +54,13 @@ rspct_df['text'] = rspct_df[['title', 'selftext']].apply(join_text, axis=1)
 # and last 20% is a stratified split (equal proportions of subreddits)
 
 # DATASET_SIZE = 100
-DATASET_SIZE = 200000
+DATASET_SIZE = 100000
 
 rspct_df = rspct_df.head(DATASET_SIZE)
 
 train_split_index = int(len(rspct_df) * 0.8)
 
+# TODO(pradeep): Use `train_test_split`. Save files.
 train_df, test_df = rspct_df[:train_split_index], rspct_df[train_split_index:]
 X_train , X_test  = train_df.text, test_df.text
 y_train, y_test   = train_df.subreddit, test_df.subreddit
@@ -78,7 +78,7 @@ le.fit(y_train)
 y_train = le.transform(y_train)
 y_test  = le.transform(y_test)
 
-print(y_train[:5])
+# print(y_train[:5])
 
 # array([920, 931, 161, 827, 669])
 
@@ -89,10 +89,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 # note : you can do better than this by extracting more features, then
 # doing feature selection, but not enough memory on this kernel!
 
-print('this cell will take about 10 minutes to run')
+# print('this cell will take about 10 minutes to run')
 
 NUM_FEATURES = 30000 if RUNNING_KAGGLE_KERNEL else 100000
 
+# TODO(pradeep): Use max_df and stop_words='english'. Try analyzer = 'word' and 'char'.
 tf_idf_vectorizer = TfidfVectorizer(max_features = NUM_FEATURES,
                                 min_df=5,
                                 ngram_range=(1,2),
@@ -107,7 +108,7 @@ from sklearn.feature_selection import chi2, SelectKBest
 
 # if we have more memory, select top 100000 features and select good features
 if not RUNNING_KAGGLE_KERNEL:
-    chi2_selector = SelectKBest(chi2, 30000)
+    chi2_selector = SelectKBest(chi2, NUM_FEATURES)
 
     chi2_selector.fit(X_train, y_train)
 
@@ -121,13 +122,24 @@ print(X_train.shape, X_test.shape)
 # ((810400, 30000), (202600, 30000))
 
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
 
 # train a naive bayes model, get predictions
 
-nb_model = MultinomialNB(alpha=0.1)
-nb_model.fit(X_train, y_train)
+def get_model(name='NBC'):
+    model = None
+    if name == 'NBC':
+        model = MultinomialNB(alpha=0.1)
+    elif name == 'LR':
+        model = LogisticRegression(solver='sag', verbose=2)
+    return model
 
-y_pred_proba = nb_model.predict_proba(X_test)
+# model_name = 'NBC'
+model_name = 'LR'
+model = get_model(model_name)
+model.fit(X_train, y_train)
+
+y_pred_proba = model.predict_proba(X_test)
 y_pred = np.argmax(y_pred_proba, axis=1)
 
 # we use precision-at-k metrics to evaluate performance
