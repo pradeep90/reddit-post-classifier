@@ -25,6 +25,7 @@ explore: src/explore_data.py
 kaggle_nbc: src/kaggle_nbc.py
 	$(PYTHON) $^
 
+.PHONY: test_preprocessing
 test_preprocessing: src/preprocessing/tests/test_preprocessing.py
 	$(PYTHON) -m unittest -v $^
  
