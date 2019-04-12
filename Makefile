@@ -21,8 +21,8 @@ freeze:
 explore: src/explore_data.py
 	$(PYTHON) $^
 
-.PHONY: kaggle_nbc
-kaggle_nbc: src/kaggle_nbc.py
+.PHONY: process_dataset
+process_dataset: src/process_dataset.py
 	(echo -n 'Start: '; date; $(PYTHON) $^; echo -n 'End: '; date; echo) | tee -a logs/model_outputs.txt
 
 .PHONY: test_preprocessing
