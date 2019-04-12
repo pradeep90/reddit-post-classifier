@@ -7,3 +7,22 @@ LogisticRegression (100k points; 47m to train; 1013 rounds of convergence @ 2.78
 precision@1 = 0.50875
 precision@3 = 0.6624
 precision@5 = 0.7147
+
+LogisticRegression (1k points; 1.5m to train; 1013 rounds of convergence @ 11 rounds per second):
+precision@1 = 0.0
+precision@3 = 0.005
+precision@5 = 0.005
+
+LogisticRegression (1k points; 1.5m to train):
+Start: Fri Apr 12 17:07:33 EDT 2019
+precision@1 = 0.0
+precision@3 = 0.005
+precision@5 = 0.005
+End: Fri Apr 12 17:08:58 EDT 2019
+Start: Fri Apr 12 17:09:36 EDT 2019
+(800, 2934) (200, 2934)
+precision@1 = 0.0
+precision@3 = 0.005
+precision@5 = 0.005
+End: Fri Apr 12 17:11:01 EDT 2019
+

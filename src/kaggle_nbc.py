@@ -53,8 +53,8 @@ rspct_df['text'] = rspct_df[['title', 'selftext']].apply(join_text, axis=1)
 # take the last 20% as a test set - N.B data is already randomly shuffled,
 # and last 20% is a stratified split (equal proportions of subreddits)
 
-# DATASET_SIZE = 100
-DATASET_SIZE = 100000
+DATASET_SIZE = 1000
+# DATASET_SIZE = 100000
 
 rspct_df = rspct_df.head(DATASET_SIZE)
 
@@ -70,7 +70,8 @@ from sklearn.preprocessing import LabelEncoder
 # label encode y
 
 le = LabelEncoder()
-le.fit(y_train)
+# le.fit(y_train)
+le.fit(pd.concat([y_train, y_test]))
 
 # TODO(pradeep): Change this back.
 # old_y_train = y_train.copy()
@@ -108,6 +109,8 @@ from sklearn.feature_selection import chi2, SelectKBest
 
 # if we have more memory, select top 100000 features and select good features
 if not RUNNING_KAGGLE_KERNEL:
+    # TODO(pradeep): This doesn't reduce the number of features because there
+    # are already only NUM_FEATURES of them.
     chi2_selector = SelectKBest(chi2, NUM_FEATURES)
 
     chi2_selector.fit(X_train, y_train)
@@ -115,7 +118,7 @@ if not RUNNING_KAGGLE_KERNEL:
     X_train = chi2_selector.transform(X_train)
     X_test  = chi2_selector.transform(X_test)
 
-print(X_train.shape, X_test.shape)
+# print(X_train.shape, X_test.shape)
 
 # this cell will take about 10 minutes to run
 
@@ -131,7 +134,7 @@ def get_model(name='NBC'):
     if name == 'NBC':
         model = MultinomialNB(alpha=0.1)
     elif name == 'LR':
-        model = LogisticRegression(solver='sag', verbose=2)
+        model = LogisticRegression(solver='sag')
     return model
 
 # model_name = 'NBC'
@@ -153,8 +156,8 @@ def precision_at_k(y_true, y_pred, k=5):
     arr = [y in s for y, s in zip(y_true, y_pred)]
     return np.mean(arr)
 
-print(f'{y_test[:10]}')
-print(f'{y_pred[:10]}')
+# print(f'{y_test[:10]}')
+# print(f'{y_pred[:10]}')
 
 # Got DeprecationWarning.
 # print('precision@1 =', np.mean(y_test == y_pred))
