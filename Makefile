@@ -23,11 +23,11 @@ explore: src/explore_data.py
 
 .PHONY: kaggle_nbc
 kaggle_nbc: src/kaggle_nbc.py
-	$(PYTHON) $^
+	(echo -n 'Start: '; date; $(PYTHON) $^; echo -n 'End: '; date; echo) | tee -a logs/model_outputs.txt
 
 .PHONY: test_preprocessing
 test_preprocessing: src/preprocessing/tests/test_preprocessing.py
 	$(PYTHON) -m unittest -v $^
- 
+
 .PHONY: all
 all: test report
