@@ -21,9 +21,9 @@ freeze:
 explore: src/explore_data.py
 	$(PYTHON) $^
 
-.PHONY: process_dataset
-process_dataset: src/process_dataset.py
-	(echo -n 'Start: '; date; $(PYTHON) $^; echo -n 'End: '; date; echo) | tee -a logs/model_outputs.txt
+.PHONY: train_and_test_model
+train_and_test_model: src/train_and_test_model.py
+	(echo; echo -n 'Start: '; date; $(PYTHON) $^; echo -n 'End: '; date; echo) | tee -a logs/model_outputs.txt
 
 .PHONY: test_preprocessing
 test_preprocessing: src/preprocessing/tests/test_preprocessing.py
