@@ -4,6 +4,7 @@ import os
 from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_selection import chi2, SelectKBest
 from sklearn.feature_extraction.text import TfidfVectorizer
+from parameters import IS_DEBUGGING_ON
 
 # TODO(pradeep): Extract this.
 RUNNING_KAGGLE_KERNEL = True
@@ -13,6 +14,19 @@ def join_text(row):
         return row['title'][:100] + " " + row['selftext'][:512]
     else:
         return row['title'] + " " + row['selftext']
+
+def get_reddit_dataset(dataset_name='data/rspct.tsv', size=100):
+    rspct_df = pd.read_csv(dataset_name, sep='\t')
+
+    # DATASET_SIZE = 100
+    # DATASET_SIZE = 100000
+
+    if IS_DEBUGGING_ON:
+        print('Dataset size:', size)
+
+    if size is not None:
+        rspct_df = rspct_df.head(size)
+    return rspct_df
 
 def get_vectorized_training_and_test_set():
     """Return vectorized, label-encoded training and test set with labels."""
@@ -24,35 +38,7 @@ def get_vectorized_training_and_test_set():
     # set this as False if you are running on a computer with a lot of RAM
     # it should be possible to use less memory in this kernel using generators
     # rather than storing everything in RAM, but we won't explore that here
-
-    rspct_df = pd.read_csv('data/rspct.tsv', sep='\t')
-
-    info_df  = pd.read_csv('data/subreddit_info.csv')
-
-    # Basic data analysis
-
-    # print(rspct_df.head(5))
-
-    # 	id 	subreddit 	title 	selftext
-    # 0 	6d8knd 	talesfromtechsupport 	Remember your command line switches... 	Hi there, <lb>The usual. Long time lerker, fi...
-    # 1 	58mbft 	teenmom 	So what was Matt "addicted" to? 	Did he ever say what his addiction was or is h...
-    # 2 	8f73s7 	Harley 	No Club Colors 	Funny story. I went to college in Las Vegas. T...
-    # 3 	6ti6re 	ringdoorbell 	Not door bell, but floodlight mount height. 	I know this is a sub for the 'Ring Doorbell' b...
-    # 4 	77sxto 	intel 	Worried about my 8700k small fft/data stress r... 	Prime95 (regardless of version) and OCCT both,...
-
-    # note that info_df has information on subreddits that are not in data,
-    # we filter them out here
-
-    info_df = info_df[info_df.in_data].reset_index()
-    # print(info_df.head(5))
-
-    # 	index 	subreddit 	category_1 	category_2 	category_3 	in_data 	reason_for_exclusion
-    # 0 	0 	whatsthatbook 	advice/question 	book 	NaN 	True 	NaN
-    # 1 	25 	theydidthemath 	advice/question 	calculations 	NaN 	True 	NaN
-    # 2 	26 	datarecovery 	advice/question 	data recovery 	NaN 	True 	NaN
-    # 3 	27 	declutter 	advice/question 	declutter 	NaN 	True 	NaN
-    # 4 	30 	productivity 	advice/question 	discipline 	NaN 	True 	NaN
-    # Naive Bayes benchmark
+    rspct_df = get_reddit_dataset()
 
     # we join the title and selftext into one field
 
@@ -60,12 +46,6 @@ def get_vectorized_training_and_test_set():
 
     # take the last 20% as a test set - N.B data is already randomly shuffled,
     # and last 20% is a stratified split (equal proportions of subreddits)
-
-    DATASET_SIZE = 100
-    # DATASET_SIZE = 100000
-    print('DATASET_SIZE:', DATASET_SIZE)
-
-    rspct_df = rspct_df.head(DATASET_SIZE)
 
     train_split_index = int(len(rspct_df) * 0.8)
 
