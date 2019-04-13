@@ -27,7 +27,20 @@ def get_reddit_dataset(dataset_name='data/rspct.tsv', size=100):
 
     if size is not None:
         rspct_df = rspct_df.head(size)
+
+    rspct_df['text'] = rspct_df[['title', 'selftext']].apply(join_text, axis=1)
+
     return rspct_df
+
+def label_encode(y_train, y_test):
+    le = LabelEncoder()
+    le.fit(pd.concat([y_train, y_test]))
+    return (le.transform(y_train), le.transform(y_test))
+
+def get_label_encoded_training_test_sets(df, input_col='text', output_col='subreddit'):
+    X_train, X_test, y_train, y_test = train_test_split(df[input_col], df[output_col],
+                                                        test_size=0.2, random_state=42)
+    return (X_train, X_test, *label_encode(y_train, y_test))
 
 def get_vectorized_training_and_test_set():
     """Return vectorized, label-encoded training and test set with labels."""
@@ -41,26 +54,7 @@ def get_vectorized_training_and_test_set():
     # rather than storing everything in RAM, but we won't explore that here
     rspct_df = get_reddit_dataset()
 
-    # we join the title and selftext into one field
-
-    rspct_df['text'] = rspct_df[['title', 'selftext']].apply(join_text, axis=1)
-
-    train_split_index = int(len(rspct_df) * 0.8)
-
-    X_train, X_test, y_train, y_test = train_test_split(rspct_df['text'], rspct_df['subreddit'],
-                                                         test_size=0.2, random_state=42)
-
-    # label encode y
-
-    le = LabelEncoder()
-    # le.fit(y_train)
-    le.fit(pd.concat([y_train, y_test]))
-
-    # TODO(pradeep): Change this back.
-    # old_y_train = y_train.copy()
-
-    y_train = le.transform(y_train)
-    y_test  = le.transform(y_test)
+    X_train, X_test, y_train, y_test = get_label_encoded_training_test_sets(rspct_df)
 
     # print(y_train[:5])
 
