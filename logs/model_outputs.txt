@@ -1,3 +1,14 @@
+Kaggle guy's results:
+RUNNING_KAGGLE_KERNEL == True
+precision@1 = 0.610528134254689
+precision@3 = 0.7573692003948668
+precision@5 = 0.8067670286278381
+
+RUNNING_KAGGLE_KERNEL == False
+precision@1 = 0.7292102665350444
+precision@3 = 0.8512240868706812
+precision@5 = 0.8861500493583415
+
 NBC (200k points)
 precision@1 = 0.5346
 precision@3 = 0.68945
@@ -19,10 +30,181 @@ precision@1 = 0.0
 precision@3 = 0.005
 precision@5 = 0.005
 End: Fri Apr 12 17:08:58 EDT 2019
-Start: Fri Apr 12 17:09:36 EDT 2019
-(800, 2934) (200, 2934)
-precision@1 = 0.0
-precision@3 = 0.005
-precision@5 = 0.005
-End: Fri Apr 12 17:11:01 EDT 2019
 
+Start: Fri Apr 12 18:31:52 EDT 2019
+model LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+DATASET_SIZE: 100
+precision@1 = 0.0
+precision@3 = 0.05
+precision@5 = 0.05
+End: Fri Apr 12 18:32:42 EDT 2019
+
+
+Start: Fri Apr 12 18:51:39 EDT 2019
+
+Start: Fri Apr 12 19:06:30 EDT 2019
+model LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+precision@1 = 0.0
+precision@3 = 0.05
+precision@5 = 0.05
+End: Fri Apr 12 19:06:52 EDT 2019
+
+
+Start: Fri Apr 12 19:11:17 EDT 2019
+model LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+precision@1 = 0.00125
+precision@3 = 0.00375
+precision@5 = 0.005
+End: Fri Apr 12 19:16:21 EDT 2019
+
+
+Start: Fri Apr 12 19:38:31 EDT 2019
+model LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+precision@1 = 0.00125
+precision@3 = 0.0025
+precision@5 = 0.005
+End: Fri Apr 12 19:43:46 EDT 2019
+
+
+Start: Fri Apr 12 19:44:53 EDT 2019
+model LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+precision@1 = 0.0555
+precision@3 = 0.0975
+precision@5 = 0.12
+End: Fri Apr 12 19:59:17 EDT 2019
+
+
+Start: Fri Apr 12 20:17:05 EDT 2019
+model LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+precision@1 = 0.0
+precision@3 = 0.0
+precision@5 = 0.05
+End: Fri Apr 12 20:17:22 EDT 2019
+
+
+Start: Sat Apr 13 16:46:22 EDT 2019
+End: Sat Apr 13 16:46:22 EDT 2019
+
+
+Start: Sat Apr 13 16:46:58 EDT 2019
+End: Sat Apr 13 16:46:58 EDT 2019
+
+
+Start: Sat Apr 13 16:47:12 EDT 2019
+End: Sat Apr 13 16:47:12 EDT 2019
+
+
+Start: Sat Apr 13 16:47:23 EDT 2019
+End: Sat Apr 13 16:47:24 EDT 2019
+
+
+Start: Sat Apr 13 16:48:53 EDT 2019
+End: Sat Apr 13 16:48:53 EDT 2019
+
+
+Start: Sat Apr 13 16:48:55 EDT 2019
+End: Sat Apr 13 16:48:56 EDT 2019
+
+
+Start: Sat Apr 13 16:51:01 EDT 2019
+Indexing word vectors.
+End: Sat Apr 13 16:51:12 EDT 2019
+
+
+Start: Sat Apr 13 16:51:35 EDT 2019
+End: Sat Apr 13 16:51:35 EDT 2019
+
+
+Start: Sat Apr 13 16:51:40 EDT 2019
+Indexing word vectors.
+End: Sat Apr 13 16:51:48 EDT 2019
+
+
+Start: Sat Apr 13 16:52:27 EDT 2019
+Indexing word vectors.
+Found 400000 word vectors.
+Processing text dataset
+Found 0 texts.
+Found 0 unique tokens.
+End: Sat Apr 13 16:52:44 EDT 2019
+
+
+Start: Sat Apr 13 16:53:13 EDT 2019
+Indexing word vectors.
+Found 400000 word vectors.
+Processing text dataset
+Found 19997 texts.
+Found 174074 unique tokens.
+Shape of data tensor: (19997, 10)
+Shape of label tensor: (19997, 20)
+Preparing embedding matrix.
+End: Sat Apr 13 16:53:50 EDT 2019
+
+
+Start: Sat Apr 13 16:55:35 EDT 2019
+Indexing word vectors.
+Found 400000 word vectors.
+Processing text dataset
+Found 19997 texts.
+Found 174074 unique tokens.
+Shape of data tensor: (19997, 10)
+Shape of label tensor: (19997, 20)
+Preparing embedding matrix.
+Training model.
+End: Sat Apr 13 16:56:05 EDT 2019
+
+
+Start: Sat Apr 13 16:56:24 EDT 2019
+Indexing word vectors.
+Found 400000 word vectors.
+Processing text dataset
+Found 19997 texts.
+Found 174074 unique tokens.
+Shape of data tensor: (19997, 100)
+Shape of label tensor: (19997, 20)
+Preparing embedding matrix.
+Training model.
+End: Sat Apr 13 16:56:54 EDT 2019
+
+
+Start: Sat Apr 13 16:57:08 EDT 2019
+Keras CNN tutorial.
+Indexing word vectors.
+Found 400000 word vectors.
+Processing text dataset
+Found 19997 texts.
+Found 174074 unique tokens.
+Shape of data tensor: (19997, 1000)
+Shape of label tensor: (19997, 20)
+Preparing embedding matrix.
+Training model.
+Train on 15998 samples, validate on 3999 samples
+15998/15998 [==============================] - 46s 3ms/step - loss: 2.4178 - acc: 0.2055 - val_loss: 1.8238 - val_acc: 0.3711
+15998/15998 [==============================] - 44s 3ms/step - loss: 1.5794 - acc: 0.4526 - val_loss: 1.4371 - val_acc: 0.4846
+15998/15998 [==============================] - 45s 3ms/step - loss: 1.2057 - acc: 0.5835 - val_loss: 1.2670 - val_acc: 0.5659
+15998/15998 [==============================] - 45s 3ms/step - loss: 0.9972 - acc: 0.6603 - val_loss: 1.1051 - val_acc: 0.6409
+15998/15998 [==============================] - 45s 3ms/step - loss: 0.8347 - acc: 0.7136 - val_loss: 0.9480 - val_acc: 0.6762
+15998/15998 [==============================] - 45s 3ms/step - loss: 0.7123 - acc: 0.7556 - val_loss: 0.9698 - val_acc: 0.6822
+15998/15998 [==============================] - 45s 3ms/step - loss: 0.6015 - acc: 0.7943 - val_loss: 0.8732 - val_acc: 0.7217
+15998/15998 [==============================] - 45s 3ms/step - loss: 0.5115 - acc: 0.8267 - val_loss: 0.9229 - val_acc: 0.7077
+15998/15998 [==============================] - 45s 3ms/step - loss: 0.4382 - acc: 0.8520 - val_loss: 1.0000 - val_acc: 0.7082
+15998/15998 [==============================] - 45s 3ms/step - loss: 0.3695 - acc: 0.8759 - val_loss: 0.9788 - val_acc: 0.7224
+End: Sat Apr 13 17:05:09 EDT 2019

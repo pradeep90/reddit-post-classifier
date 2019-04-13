@@ -27,21 +27,14 @@ from keras.models import Model
 from keras.initializers import Constant
 
 
-BASE_DIR = ''
-GLOVE_DIR = os.path.join(BASE_DIR, 'glove.6B')
-TEXT_DATA_DIR = os.path.join(BASE_DIR, '20_newsgroup')
+BASE_DIR = 'data'
+GLOVE_DIR = os.path.join(BASE_DIR, 'Glove.6B')
+TEXT_DATA_DIR = os.path.join(BASE_DIR, '20_newsgroup/20_newsgroup')
 
-IS_SMALL_DATASET = True
-if IS_SMALL_DATASET:
-    MAX_SEQUENCE_LENGTH = 10
-    MAX_NUM_WORDS = 20
-    EMBEDDING_DIM = 10
-    VALIDATION_SPLIT = 0.2
-else:
-    MAX_SEQUENCE_LENGTH = 1000
-    MAX_NUM_WORDS = 20000
-    EMBEDDING_DIM = 100
-    VALIDATION_SPLIT = 0.2
+MAX_SEQUENCE_LENGTH = 1000
+MAX_NUM_WORDS = 20000
+EMBEDDING_DIM = 100
+VALIDATION_SPLIT = 0.2
 
 def main():
     # first, build index mapping words in the embeddings set
@@ -155,3 +148,4 @@ def main():
               validation_data=(x_val, y_val))
 
 if __name__ == '__main__':
+    main()
