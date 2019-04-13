@@ -89,7 +89,8 @@ def get_embeddings_index():
     print('Found %s word vectors.' % len(embeddings_index))
     return embeddings_index
 
-def train_CNN(texts, labels, labels_index):
+def train_CNN(texts, labels):
+    num_labels = len(np.unique(labels))
     embeddings_index = get_embeddings_index()
 
     # finally, vectorize the text samples into a 2D integer tensor
@@ -152,7 +153,7 @@ def train_CNN(texts, labels, labels_index):
     x = Conv1D(128, 5, activation='relu')(x)
     x = GlobalMaxPooling1D()(x)
     x = Dense(128, activation='relu')(x)
-    preds = Dense(len(labels_index), activation='softmax')(x)
+    preds = Dense(num_labels, activation='softmax')(x)
 
     model = Model(sequence_input, preds)
     model.compile(loss='categorical_crossentropy',
@@ -177,7 +178,7 @@ def main(is_newsgroups_dataset=True):
         texts = pd.concat([X_train, X_test])
         labels = pd.concat([y_train, y_test])
 
-    train_CNN(texts, labels, labels_index)
+    train_CNN(texts, labels)
 
 if __name__ == '__main__':
     main()
