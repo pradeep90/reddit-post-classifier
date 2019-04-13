@@ -25,6 +25,10 @@ explore: src/explore_data.py
 train_and_test_model: src/train_and_test_model.py
 	(echo; echo -n 'Start: '; date; $(PYTHON) $^; echo -n 'End: '; date; echo) | tee -a logs/model_outputs.txt
 
+.PHONY: pretrained_word_embeddings
+pretrained_word_embeddings: src/pretrained_word_embeddings.py
+	(echo; echo -n 'Start: '; date; $(PYTHON) $^; echo -n 'End: '; date; echo) | tee -a logs/model_outputs.txt
+
 .PHONY: test_preprocessing
 test_preprocessing: src/preprocessing/tests/test_preprocessing.py
 	$(PYTHON) -m unittest -v $^
