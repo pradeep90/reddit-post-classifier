@@ -25,7 +25,9 @@ from keras.layers import Dense, Input, GlobalMaxPooling1D
 from keras.layers import Conv1D, MaxPooling1D, Embedding
 from keras.models import Model
 from keras.initializers import Constant
-
+from process_dataset import get_label_encoded_training_test_sets, get_reddit_dataset
+import pandas as pd
+import unittest
 
 BASE_DIR = 'data'
 GLOVE_DIR = os.path.join(BASE_DIR, 'Glove.6B')
@@ -36,6 +38,15 @@ MAX_NUM_WORDS = 20000
 EMBEDDING_DIM = 100
 VALIDATION_SPLIT = 0.2
 NUM_EPOCHS = 1
+
+class CNNTest(unittest.TestCase):
+    def test_get_labels_index(self):
+        xs = 'yo boyz I am sing song'.split()
+        self.assertEqual(get_labels_index(xs),
+                         {'I': 2, 'am': 3, 'boyz': 1, 'sing': 4, 'song': 5, 'yo': 0})
+
+def get_labels_index(labels):
+    return {x:i for i,x in enumerate(labels)}
 
 def get_texts_and_labels():
     "Return (texts, labels, labels_index)"
@@ -60,9 +71,12 @@ def get_texts_and_labels():
                             t = t[i:]
                         texts.append(t)
                     labels.append(label_id)
-
     print('Found %s texts.' % len(texts))
-    return (texts, labels, labels_index)
+
+    overall_labels = [name for name in sorted(os.listdir(TEXT_DATA_DIR))
+                      if os.path.isdir(os.path.join(TEXT_DATA_DIR, name))]
+    assert labels_index == get_labels_index(overall_labels)
+    return (texts, labels, get_labels_index(overall_labels))
 
 def get_embeddings_index():
     embeddings_index = {}
@@ -93,6 +107,7 @@ def train_CNN(texts, labels, labels_index):
     print('Shape of label tensor:', labels.shape)
 
     # split the data into a training set and a validation set
+    # TODO(pradeep): Use the training and test split already done.
     indices = np.arange(data.shape[0])
     np.random.shuffle(indices)
     data = data[indices]
@@ -149,13 +164,19 @@ def train_CNN(texts, labels, labels_index):
               epochs=NUM_EPOCHS,
               validation_data=(x_val, y_val))
 
-def main():
+def main(is_newsgroups_dataset=True):
     # first, build index mapping words in the embeddings set
     # to their embedding vector
 
     print('Indexing word vectors.')
 
-    texts, labels, labels_index = get_texts_and_labels()
+    if is_newsgroups_dataset:
+        texts, labels, labels_index = get_texts_and_labels()
+    else:
+        X_train, X_test, y_train, y_test = get_label_encoded_training_test_sets(get_reddit_dataset())
+        texts = pd.concat([X_train, X_test])
+        labels = pd.concat([y_train, y_test])
+
     train_CNN(texts, labels, labels_index)
 
 if __name__ == '__main__':

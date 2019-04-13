@@ -2,8 +2,8 @@ VENV := venv/bin
 PYTHON := $(VENV)/python
 UNAME := $(shell uname -n)
 
-test: src/utils.py
-	$(PYTHON) -m unittest src.utils.UtilsTest
+test: src/utils.py src/pretrained_word_embeddings.py
+	cd src && ../$(PYTHON) -m unittest utils.UtilsTest pretrained_word_embeddings.CNNTest
 
 .PHONY: set_up_venv
 set_up_venv:
