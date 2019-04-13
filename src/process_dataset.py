@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_selection import chi2, SelectKBest
+from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from parameters import IS_DEBUGGING_ON
 
@@ -44,15 +45,10 @@ def get_vectorized_training_and_test_set():
 
     rspct_df['text'] = rspct_df[['title', 'selftext']].apply(join_text, axis=1)
 
-    # take the last 20% as a test set - N.B data is already randomly shuffled,
-    # and last 20% is a stratified split (equal proportions of subreddits)
-
     train_split_index = int(len(rspct_df) * 0.8)
 
-    # TODO(pradeep): Use `train_test_split`. Save files.
-    train_df, test_df = rspct_df[:train_split_index], rspct_df[train_split_index:]
-    X_train , X_test  = train_df.text, test_df.text
-    y_train, y_test   = train_df.subreddit, test_df.subreddit
+    X_train, X_test, y_train, y_test = train_test_split(rspct_df['text'], rspct_df['subreddit'],
+                                                         test_size=0.2, random_state=42)
 
     # label encode y
 
@@ -107,4 +103,4 @@ def get_vectorized_training_and_test_set():
 
     # ((810400, 30000), (202600, 30000))
 
-    return (X_train, y_train, X_test, y_train)
+    return (X_train, y_train, X_test, y_test)
