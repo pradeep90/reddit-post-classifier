@@ -37,7 +37,7 @@ MAX_SEQUENCE_LENGTH = 1000
 MAX_NUM_WORDS = 20000
 EMBEDDING_DIM = 100
 VALIDATION_SPLIT = 0.2
-NUM_EPOCHS = 1
+NUM_EPOCHS = 10
 
 class CNNTest(unittest.TestCase):
     def test_get_labels_index(self):
@@ -165,7 +165,7 @@ def train_CNN(texts, labels):
               epochs=NUM_EPOCHS,
               validation_data=(x_val, y_val))
 
-def main(is_newsgroups_dataset=True):
+def main(is_newsgroups_dataset=False):
     # first, build index mapping words in the embeddings set
     # to their embedding vector
 
@@ -174,9 +174,9 @@ def main(is_newsgroups_dataset=True):
     if is_newsgroups_dataset:
         texts, labels, labels_index = get_texts_and_labels()
     else:
-        X_train, X_test, y_train, y_test = get_label_encoded_training_test_sets(get_reddit_dataset())
+        X_train, X_test, y_train, y_test = get_label_encoded_training_test_sets(get_reddit_dataset(size=10000))
         texts = pd.concat([X_train, X_test])
-        labels = pd.concat([y_train, y_test])
+        labels = np.concatenate([y_train, y_test])
 
     train_CNN(texts, labels)
 
