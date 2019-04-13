@@ -35,23 +35,10 @@ MAX_SEQUENCE_LENGTH = 1000
 MAX_NUM_WORDS = 20000
 EMBEDDING_DIM = 100
 VALIDATION_SPLIT = 0.2
+NUM_EPOCHS = 1
 
-def main():
-    # first, build index mapping words in the embeddings set
-    # to their embedding vector
-
-    print('Indexing word vectors.')
-
-    embeddings_index = {}
-    with open(os.path.join(GLOVE_DIR, 'glove.6B.100d.txt')) as f:
-        for line in f:
-            word, coefs = line.split(maxsplit=1)
-            coefs = np.fromstring(coefs, 'f', sep=' ')
-            embeddings_index[word] = coefs
-
-    print('Found %s word vectors.' % len(embeddings_index))
-
-    # second, prepare text samples and their labels
+def get_texts_and_labels():
+    "Return (texts, labels, labels_index)"
     print('Processing text dataset')
 
     texts = []  # list of text samples
@@ -75,6 +62,21 @@ def main():
                     labels.append(label_id)
 
     print('Found %s texts.' % len(texts))
+    return (texts, labels, labels_index)
+
+def get_embeddings_index():
+    embeddings_index = {}
+    with open(os.path.join(GLOVE_DIR, 'glove.6B.100d.txt')) as f:
+        for line in f:
+            word, coefs = line.split(maxsplit=1)
+            coefs = np.fromstring(coefs, 'f', sep=' ')
+            embeddings_index[word] = coefs
+
+    print('Found %s word vectors.' % len(embeddings_index))
+    return embeddings_index
+
+def train_CNN(texts, labels, labels_index):
+    embeddings_index = get_embeddings_index()
 
     # finally, vectorize the text samples into a 2D integer tensor
     tokenizer = Tokenizer(num_words=MAX_NUM_WORDS)
@@ -144,8 +146,17 @@ def main():
 
     model.fit(x_train, y_train,
               batch_size=128,
-              epochs=10,
+              epochs=NUM_EPOCHS,
               validation_data=(x_val, y_val))
+
+def main():
+    # first, build index mapping words in the embeddings set
+    # to their embedding vector
+
+    print('Indexing word vectors.')
+
+    texts, labels, labels_index = get_texts_and_labels()
+    train_CNN(texts, labels, labels_index)
 
 if __name__ == '__main__':
     main()
