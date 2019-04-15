@@ -1,6 +1,8 @@
 import numpy as np
 import unittest
 from pandas import DataFrame
+import datetime
+import re
 
 class UtilsTest(unittest.TestCase):
     def test_assertDataFrameEqual(self):
@@ -25,3 +27,6 @@ def assertDataFrameEqual(df, xs):
             np.testing.assert_almost_equal(_df.values, _xs)
     else:
         np.testing.assert_almost_equal(df.values, xs)
+
+def get_dashed_time():
+    return '-'.join(re.split('[ .]', str(datetime.datetime.now())))

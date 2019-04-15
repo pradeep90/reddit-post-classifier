@@ -1,6 +1,7 @@
 VENV := venv/bin
 PYTHON := $(VENV)/python
 UNAME := $(shell uname -n)
+SHELL := /bin/bash
 
 test: src/utils.py src/pretrained_word_embeddings.py
 	cd src && ../$(PYTHON) -m unittest utils.UtilsTest pretrained_word_embeddings.CNNTest
@@ -27,7 +28,7 @@ train_and_test_model: src/train_and_test_model.py
 
 .PHONY: pretrained_word_embeddings
 pretrained_word_embeddings: src/pretrained_word_embeddings.py
-	(echo; echo -n 'Start: '; date; $(PYTHON) $^; echo -n 'End: '; date; echo) | tee -a logs/model_outputs.txt
+	(echo; echo -n 'Start: '; date; $(PYTHON) $^; echo -n 'End: '; date; echo) | tee >(grep -v 'ETA' >> logs/model_outputs.txt)
 
 .PHONY: test_preprocessing
 test_preprocessing: src/preprocessing/tests/test_preprocessing.py

@@ -23,21 +23,29 @@ from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
 from keras.layers import Dense, Input, GlobalMaxPooling1D
 from keras.layers import Conv1D, MaxPooling1D, Embedding
-from keras.models import Model
+from keras.models import Model, load_model
 from keras.initializers import Constant
 from process_dataset import get_label_encoded_training_test_sets, get_reddit_dataset
 import pandas as pd
 import unittest
+from parameters import *
+from utils import get_dashed_time
 
 BASE_DIR = 'data'
 GLOVE_DIR = os.path.join(BASE_DIR, 'Glove.6B')
 TEXT_DATA_DIR = os.path.join(BASE_DIR, '20_newsgroup/20_newsgroup')
 
+if experiment_name == '100k-rows':
+    NUM_EPOCHS = 10
+    DATASET_SIZE = 100000
+else:
+    NUM_EPOCHS = 10
+    DATASET_SIZE = 10000
+
+EMBEDDING_DIM = 100
 MAX_SEQUENCE_LENGTH = 1000
 MAX_NUM_WORDS = 20000
-EMBEDDING_DIM = 100
 VALIDATION_SPLIT = 0.2
-NUM_EPOCHS = 10
 
 class CNNTest(unittest.TestCase):
     def test_get_labels_index(self):
@@ -89,9 +97,45 @@ def get_embeddings_index():
     print('Found %s word vectors.' % len(embeddings_index))
     return embeddings_index
 
-def train_CNN(texts, labels):
+def save_model(model, basename='model'):
+    model_filename = f'{basename}.h5'
+    model.save(model_filename)
+    print("Saved model to disk")
+
+def get_vectorized_text_and_labels(texts, labels):
     num_labels = len(np.unique(labels))
     embeddings_index = get_embeddings_index()
+
+    # finally, vectorize the text samples into a 2D integer tensor
+    tokenizer = Tokenizer(num_words=MAX_NUM_WORDS)
+    tokenizer.fit_on_texts(texts)
+    sequences = tokenizer.texts_to_sequences(texts)
+
+    word_index = tokenizer.word_index
+    print('Found %s unique tokens.' % len(word_index))
+
+    data = pad_sequences(sequences, maxlen=MAX_SEQUENCE_LENGTH)
+
+    labels = to_categorical(np.asarray(labels))
+    print('Shape of data tensor:', data.shape)
+    print('Shape of label tensor:', labels.shape)
+
+    # split the data into a training set and a validation set
+    # TODO(pradeep): Use the training and test split already done.
+    indices = np.arange(data.shape[0])
+    np.random.shuffle(indices)
+    data = data[indices]
+    labels = labels[indices]
+    num_validation_samples = int(VALIDATION_SPLIT * data.shape[0])
+
+    x_train = data[:-num_validation_samples]
+    y_train = labels[:-num_validation_samples]
+    x_val = data[-num_validation_samples:]
+    y_val = labels[-num_validation_samples:]
+    return (x_train, x_val, y_train, y_val, num_labels)
+
+def train_CNN(texts, labels):
+    num_labels = len(np.unique(labels))
 
     # finally, vectorize the text samples into a 2D integer tensor
     tokenizer = Tokenizer(num_words=MAX_NUM_WORDS)
@@ -122,6 +166,7 @@ def train_CNN(texts, labels):
 
     print('Preparing embedding matrix.')
 
+    embeddings_index = get_embeddings_index()
     # prepare embedding matrix
     num_words = min(MAX_NUM_WORDS, len(word_index)) + 1
     embedding_matrix = np.zeros((num_words, EMBEDDING_DIM))
@@ -158,14 +203,18 @@ def train_CNN(texts, labels):
     model = Model(sequence_input, preds)
     model.compile(loss='categorical_crossentropy',
                   optimizer='rmsprop',
-                  metrics=['acc'])
+                  metrics=['acc', 'top_k_categorical_accuracy'])
 
     model.fit(x_train, y_train,
               batch_size=128,
               epochs=NUM_EPOCHS,
               validation_data=(x_val, y_val))
+    return model
 
-def main(is_newsgroups_dataset=False):
+def get_model_save_name(basename='CNN'):
+    return f'{basename}-{NUM_EPOCHS}-epochs-{DATASET_SIZE}-rows-{get_dashed_time()}.h5'
+
+def main(is_newsgroups_dataset=False, mode='train-from-scratch'):
     # first, build index mapping words in the embeddings set
     # to their embedding vector
 
@@ -174,11 +223,29 @@ def main(is_newsgroups_dataset=False):
     if is_newsgroups_dataset:
         texts, labels, labels_index = get_texts_and_labels()
     else:
-        X_train, X_test, y_train, y_test = get_label_encoded_training_test_sets(get_reddit_dataset(size=10000))
+        X_train, X_test, y_train, y_test = get_label_encoded_training_test_sets(get_reddit_dataset(size=DATASET_SIZE))
         texts = pd.concat([X_train, X_test])
         labels = np.concatenate([y_train, y_test])
 
-    train_CNN(texts, labels)
+    if mode == 'train-from-scratch':
+        model = train_CNN(texts, labels)
+        model_file_name = f'{get_model_save_name()}'
+        model.save(model_file_name)
+    elif mode == 'load-model':
+        model_file_name = 'CNN-10-epochs-100000-rows-2019-04-14-16:27:45-567600.h5'
+        model = load_model(model_file_name)
+        model.compile(loss='categorical_crossentropy',
+                      optimizer='rmsprop',
+                      metrics=['acc', 'top_k_categorical_accuracy'])
+        # TODO(pradeep): This is not the old training set because we are
+        # shuffling again.
+        (x_train, x_val, y_train, y_val, num_labels) = get_vectorized_text_and_labels(
+            texts, labels)
+        score = model.evaluate(x_train, y_train, batch_size=128)
+        print(f'Training set: {model.metrics_names}: {score}')
+        score = model.evaluate(x_val, y_val, batch_size=128)
+        print(f'Validation set: {model.metrics_names}: {score}')
 
 if __name__ == '__main__':
-    main()
+    # main()
+    main(mode='load-model')
