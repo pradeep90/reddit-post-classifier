@@ -1137,3 +1137,107 @@ Epoch 10/10
 8000/8000 [==============================] - 25s 3ms/step - loss: 5.2693 - acc: 0.0504 - val_loss: 6.8389 - val_acc: 0.0100
 End: Sat Apr 13 18:42:29 EDT 2019
 
+
+Start: Sun Apr 14 15:07:57 EDT 2019
+End: Sun Apr 14 15:08:05 EDT 2019
+
+
+Start: Sun Apr 14 15:08:33 EDT 2019
+Indexing word vectors.
+Found 400000 word vectors.
+Found 171952 unique tokens.
+Shape of data tensor: (100000, 1000)
+Shape of label tensor: (100000, 1013)
+Preparing embedding matrix.
+End: Sun Apr 14 15:09:33 EDT 2019
+
+
+Start: Sun Apr 14 15:46:01 EDT 2019
+Indexing word vectors.
+Found 400000 word vectors.
+Found 171952 unique tokens.
+Shape of data tensor: (100000, 1000)
+Shape of label tensor: (100000, 1013)
+Preparing embedding matrix.
+Training model.
+Train on 80000 samples, validate on 20000 samples
+Epoch 1/10
+
+80000/80000 [==============================] - 292s 4ms/step - loss: 6.6835 - acc: 0.0038 - val_loss: 6.2204 - val_acc: 0.0090
+Epoch 2/10
+
+80000/80000 [==============================] - 297s 4ms/step - loss: 5.7205 - acc: 0.0241 - val_loss: 5.3182 - val_acc: 0.0396
+Epoch 3/10
+
+80000/80000 [==============================] - 239s 3ms/step - loss: 4.9845 - acc: 0.0649 - val_loss: 4.9162 - val_acc: 0.0800
+Epoch 4/10
+
+80000/80000 [==============================] - 230s 3ms/step - loss: 4.4955 - acc: 0.1154 - val_loss: 4.6151 - val_acc: 0.1147
+Epoch 5/10
+
+80000/80000 [==============================] - 232s 3ms/step - loss: 4.1188 - acc: 0.1619 - val_loss: 4.3786 - val_acc: 0.1505
+Epoch 6/10
+
+80000/80000 [==============================] - 230s 3ms/step - loss: 3.8145 - acc: 0.2053 - val_loss: 4.2925 - val_acc: 0.1668
+Epoch 7/10
+
+80000/80000 [==============================] - 229s 3ms/step - loss: 3.5598 - acc: 0.2418 - val_loss: 4.2722 - val_acc: 0.1794
+Epoch 8/10
+
+80000/80000 [==============================] - 226s 3ms/step - loss: 3.3342 - acc: 0.2766 - val_loss: 4.2164 - val_acc: 0.1927
+Epoch 9/10
+
+80000/80000 [==============================] - 228s 3ms/step - loss: 3.1402 - acc: 0.3094 - val_loss: 4.2739 - val_acc: 0.2006
+Epoch 10/10
+
+80000/80000 [==============================] - 233s 3ms/step - loss: 2.9678 - acc: 0.3360 - val_loss: 4.3005 - val_acc: 0.1988
+End: Sun Apr 14 16:27:49 EDT 2019
+
+
+Start: Sun Apr 14 20:27:47 EDT 2019
+Indexing word vectors.
+End: Sun Apr 14 20:28:10 EDT 2019
+
+
+Start: Sun Apr 14 20:29:08 EDT 2019
+Indexing word vectors.
+Found 400000 word vectors.
+Found 171952 unique tokens.
+Shape of data tensor: (100000, 1000)
+Shape of label tensor: (100000, 1013)
+
+80000/80000 [==============================] - 70s 881us/step
+
+20000/20000 [==============================] - 18s 887us/step
+End: Sun Apr 14 20:31:42 EDT 2019
+
+
+Start: Sun Apr 14 20:34:45 EDT 2019
+Indexing word vectors.
+Found 400000 word vectors.
+Found 171952 unique tokens.
+Shape of data tensor: (100000, 1000)
+Shape of label tensor: (100000, 1013)
+
+80000/80000 [==============================] - 71s 892us/step
+Test set: acc: 35.19
+
+20000/20000 [==============================] - 18s 888us/step
+Validation set: acc: 34.86
+End: Sun Apr 14 20:37:19 EDT 2019
+
+
+Start: Sun Apr 14 20:40:07 EDT 2019
+Indexing word vectors.
+Found 400000 word vectors.
+Found 171952 unique tokens.
+Shape of data tensor: (100000, 1000)
+Shape of label tensor: (100000, 1013)
+
+80000/80000 [==============================] - 73s 910us/step
+Training set: ['loss', 'acc', 'top_k_categorical_accuracy']: [3.0125362129211424, 0.35085, 0.600325]
+
+20000/20000 [==============================] - 18s 900us/step
+Validation set: ['loss', 'acc', 'top_k_categorical_accuracy']: [2.9885347793579102, 0.3528, 0.6031]
+End: Sun Apr 14 20:42:44 EDT 2019
+
