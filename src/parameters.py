@@ -2,10 +2,11 @@ import os
 
 IS_DEBUGGING_ON = False
 
-# experiment_name = '100-rows'
+experiment_name = '100-rows'
 # experiment_name = '100k-rows-100-epochs'
-experiment_name = '1M-rows-10-epochs'
-CNN_mode = 'train-from-scratch'
+# experiment_name = '1M-rows-10-epochs'
+# CNN_mode = 'train-from-scratch'
+CNN_mode = 'train-from-scratch-2D'
 
 BASE_DIR = 'data'
 GLOVE_DIR = os.path.join(BASE_DIR, 'Glove.6B')
@@ -31,3 +32,4 @@ EMBEDDING_DIM = 100
 MAX_SEQUENCE_LENGTH = 1000
 MAX_NUM_WORDS = 20000
 VALIDATION_SPLIT = 0.2
+BATCH_SIZE = 128

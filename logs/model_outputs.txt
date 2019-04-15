@@ -1501,3 +1501,114 @@ Epoch 10/10
 800000/800000 [==============================] - 2298s 3ms/step - loss: 2.9480 - acc: 0.4157 - top_k_categorical_accuracy: 0.6179 - val_loss: 3.0720 - val_acc: 0.3990 - val_top_k_categorical_accuracy: 0.6005
 End: Mon Apr 15 06:52:13 EDT 2019
 
+
+Start: Mon Apr 15 14:14:15 EDT 2019
+Indexing word vectors.
+Found 2469 unique tokens.
+Shape of data tensor: (100, 1000)
+Shape of label tensor: (100, 96)
+Preparing embedding matrix.
+Found 400000 word vectors.
+Training model.
+End: Mon Apr 15 14:14:58 EDT 2019
+
+
+Start: Mon Apr 15 14:17:23 EDT 2019
+Indexing word vectors.
+Found 2469 unique tokens.
+Shape of data tensor: (100, 1000)
+Shape of label tensor: (100, 96)
+Preparing embedding matrix.
+Found 400000 word vectors.
+Training model.
+End: Mon Apr 15 14:17:54 EDT 2019
+
+
+Start: Mon Apr 15 14:25:05 EDT 2019
+Indexing word vectors.
+End: Mon Apr 15 14:25:26 EDT 2019
+
+
+Start: Mon Apr 15 14:25:34 EDT 2019
+Indexing word vectors.
+Found 2469 unique tokens.
+Shape of data tensor: (100, 1000)
+Shape of label tensor: (100, 96)
+Preparing embedding matrix.
+Found 400000 word vectors.
+Training model.
+End: Mon Apr 15 14:26:03 EDT 2019
+
+
+Start: Mon Apr 15 14:35:53 EDT 2019
+Indexing word vectors.
+Found 2469 unique tokens.
+Shape of data tensor: (100, 1000)
+Shape of label tensor: (100, 96)
+Preparing embedding matrix.
+Found 400000 word vectors.
+Training model.
+End: Mon Apr 15 14:36:22 EDT 2019
+
+
+Start: Mon Apr 15 14:36:43 EDT 2019
+Indexing word vectors.
+Found 2469 unique tokens.
+Shape of data tensor: (100, 1000)
+Shape of label tensor: (100, 96)
+Preparing embedding matrix.
+Found 400000 word vectors.
+Training model.
+Train on 80 samples, validate on 20 samples
+Epoch 1/10
+
+80/80 [==============================] - 1s 14ms/step - loss: 5.5637 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.0500 - val_loss: 5.6690 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+
+Epoch 00001: val_acc improved from -inf to 0.00000, saving model to CNN-2D-10-epochs-100-rows-2019-04-15-14:37:12-002262.h5
+Epoch 2/10
+
+80/80 [==============================] - 1s 11ms/step - loss: 5.5798 - acc: 0.0125 - top_k_categorical_accuracy: 0.0625 - val_loss: 5.6773 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+
+Epoch 00002: val_acc did not improve from 0.00000
+Epoch 3/10
+
+80/80 [==============================] - 1s 11ms/step - loss: 5.4478 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.0375 - val_loss: 5.6875 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+
+Epoch 00003: val_acc did not improve from 0.00000
+Epoch 4/10
+
+80/80 [==============================] - 1s 11ms/step - loss: 5.2517 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.0500 - val_loss: 5.6982 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+
+Epoch 00004: val_acc did not improve from 0.00000
+Epoch 5/10
+
+80/80 [==============================] - 1s 11ms/step - loss: 5.3673 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.0750 - val_loss: 5.7111 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+
+Epoch 00005: val_acc did not improve from 0.00000
+Epoch 6/10
+
+80/80 [==============================] - 1s 11ms/step - loss: 5.2583 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.0375 - val_loss: 5.7252 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+
+Epoch 00006: val_acc did not improve from 0.00000
+Epoch 7/10
+
+80/80 [==============================] - 1s 11ms/step - loss: 5.1184 - acc: 0.0125 - top_k_categorical_accuracy: 0.0375 - val_loss: 5.7401 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+
+Epoch 00007: val_acc did not improve from 0.00000
+Epoch 8/10
+
+80/80 [==============================] - 1s 11ms/step - loss: 4.9381 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.1125 - val_loss: 5.7564 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+
+Epoch 00008: val_acc did not improve from 0.00000
+Epoch 9/10
+
+80/80 [==============================] - 1s 11ms/step - loss: 5.2182 - acc: 0.0125 - top_k_categorical_accuracy: 0.0750 - val_loss: 5.7737 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+
+Epoch 00009: val_acc did not improve from 0.00000
+Epoch 10/10
+
+80/80 [==============================] - 1s 11ms/step - loss: 4.9540 - acc: 0.0250 - top_k_categorical_accuracy: 0.0875 - val_loss: 5.7918 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+
+Epoch 00010: val_acc did not improve from 0.00000
+End: Mon Apr 15 14:37:21 EDT 2019
+

@@ -22,9 +22,19 @@ from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
 from keras.layers import Dense, Input, GlobalMaxPooling1D
-from keras.layers import Conv1D, MaxPooling1D, Embedding
+from keras.layers import Conv1D, MaxPooling1D, Embedding, Conv2D, MaxPool2D
 from keras.models import Model, load_model
 from keras.initializers import Constant
+from keras.layers import Reshape, Flatten, Dropout, Concatenate
+from keras.layers import SpatialDropout1D, concatenate
+from keras.layers import GlobalMaxPooling1D
+
+from keras.callbacks import Callback
+from keras.optimizers import Adam
+
+from keras.callbacks import ModelCheckpoint, EarlyStopping
+from keras.utils.vis_utils import plot_model
+
 from process_dataset import get_label_encoded_training_test_sets, get_reddit_dataset
 import pandas as pd
 import unittest
@@ -167,8 +177,93 @@ def train_CNN(texts, labels):
               validation_data=(x_val, y_val))
     return model
 
+def get_2D_CNN_model(num_labels, word_index):
+    print('Preparing embedding matrix.')
+
+    embeddings_index = get_embeddings_index()
+    # prepare embedding matrix
+    num_words = min(MAX_NUM_WORDS, len(word_index)) + 1
+    embedding_matrix = np.zeros((num_words, EMBEDDING_DIM))
+    for word, i in word_index.items():
+        if i > MAX_NUM_WORDS:
+            continue
+        embedding_vector = embeddings_index.get(word)
+        if embedding_vector is not None:
+            # words not found in embedding index will be all-zeros.
+            embedding_matrix[i] = embedding_vector
+
+    filter_sizes = [2, 3, 5]
+    num_filters = BATCH_SIZE
+    drop = 0.3
+
+    print('Training model.')
+
+    # train a 1D convnet with global maxpooling
+    sequence_input = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
+
+    # Note(pradeep): He is training the embedding matrix too.
+    embedding_layer = Embedding(input_dim=num_words,
+                                output_dim=EMBEDDING_DIM,
+                                weights=[embedding_matrix],
+                                input_length=MAX_SEQUENCE_LENGTH,
+                                trainable=True)
+    embedded_sequences = embedding_layer(sequence_input)
+
+    reshape = Reshape((MAX_SEQUENCE_LENGTH, EMBEDDING_DIM, 1))(embedded_sequences)
+    conv_0 = Conv2D(num_filters,
+                    kernel_size=(filter_sizes[0], EMBEDDING_DIM),
+                    padding='valid', kernel_initializer='normal',
+                    activation='relu')(reshape)
+
+    conv_1 = Conv2D(num_filters,
+                    kernel_size=(filter_sizes[1], EMBEDDING_DIM),
+                    padding='valid', kernel_initializer='normal',
+                    activation='relu')(reshape)
+    conv_2 = Conv2D(num_filters,
+                    kernel_size=(filter_sizes[2], EMBEDDING_DIM),
+                    padding='valid', kernel_initializer='normal',
+                    activation='relu')(reshape)
+
+    maxpool_0 = MaxPool2D(pool_size=(MAX_SEQUENCE_LENGTH - filter_sizes[0] + 1, 1),
+                          strides=(1,1), padding='valid')(conv_0)
+
+    maxpool_1 = MaxPool2D(pool_size=(MAX_SEQUENCE_LENGTH - filter_sizes[1] + 1, 1),
+                          strides=(1,1), padding='valid')(conv_1)
+
+    maxpool_2 = MaxPool2D(pool_size=(MAX_SEQUENCE_LENGTH - filter_sizes[2] + 1, 1),
+                          strides=(1,1), padding='valid')(conv_2)
+    concatenated_tensor = Concatenate(axis=1)(
+        [maxpool_0, maxpool_1, maxpool_2])
+    flatten = Flatten()(concatenated_tensor)
+    dropout = Dropout(drop)(flatten)
+    # output = Dense(units=1, activation='sigmoid')(dropout)
+    output = Dense(num_labels, activation='softmax')(dropout)
+
+    model = Model(inputs=sequence_input, outputs=output)
+
+    # TODO(pradeep): Extract the hyperparameters.
+    adam = Adam(lr=1e-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
+
+    model.compile(optimizer=adam, loss='categorical_crossentropy',
+                  metrics=['acc', 'top_k_categorical_accuracy'])
+
+    return model
+
+def train_2D_CNN(texts, labels):
+    (x_train, x_val, y_train, y_val, num_labels, word_index) = get_vectorized_text_and_labels(texts, labels)
+    model = get_2D_CNN_model(num_labels, word_index)
+    model_file_name = get_model_save_name('CNN-2D')
+    checkpoint = ModelCheckpoint(model_file_name, monitor='val_acc',
+                                 verbose=1, save_best_only=True, mode='max')
+    history = model.fit(x=x_train,
+                        y=y_train,
+                        validation_data=(x_val, y_val),
+                        batch_size=BATCH_SIZE,
+                        callbacks=[checkpoint],
+                        epochs=NUM_EPOCHS)
+
 def get_model_save_name(basename='CNN'):
-    return f'{basename}-{NUM_EPOCHS}-epochs-{DATASET_SIZE}-rows-{get_dashed_time()}.h5'
+    return f'models/{basename}-{NUM_EPOCHS}-epochs-{DATASET_SIZE}-rows-{get_dashed_time()}.h5'
 
 def main(is_newsgroups_dataset=False, mode='train-from-scratch'):
     # first, build index mapping words in the embeddings set
@@ -185,10 +280,12 @@ def main(is_newsgroups_dataset=False, mode='train-from-scratch'):
 
     if mode == 'train-from-scratch':
         model = train_CNN(texts, labels)
-        model_file_name = f'{get_model_save_name()}'
+        model_file_name = get_model_save_name()
         model.save(model_file_name)
+    elif mode == 'train-from-scratch-2D':
+        train_2D_CNN(texts, labels)
     elif mode == 'load-model':
-        model_file_name = 'CNN-10-epochs-100000-rows-2019-04-14-16:27:45-567600.h5'
+        model_file_name = 'models/CNN-10-epochs-100000-rows-2019-04-14-16:27:45-567600.h5'
         model = load_model(model_file_name)
         model.compile(loss='categorical_crossentropy',
                       optimizer='rmsprop',
