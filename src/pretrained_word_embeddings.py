@@ -177,7 +177,7 @@ def train_CNN(texts, labels):
               validation_data=(x_val, y_val))
     return model
 
-def get_2D_CNN_model(num_labels, word_index):
+def get_multi_channel_CNN_model(num_labels, word_index):
     print('Preparing embedding matrix.')
 
     embeddings_index = get_embeddings_index()
@@ -249,10 +249,10 @@ def get_2D_CNN_model(num_labels, word_index):
 
     return model
 
-def train_2D_CNN(texts, labels):
+def train_multi_channel_CNN(texts, labels):
     (x_train, x_val, y_train, y_val, num_labels, word_index) = get_vectorized_text_and_labels(texts, labels)
-    model = get_2D_CNN_model(num_labels, word_index)
-    model_file_name = get_model_save_name('CNN-2D')
+    model = get_multi_channel_CNN_model(num_labels, word_index)
+    model_file_name = get_model_save_name('CNN-multi-channel')
     checkpoint = ModelCheckpoint(model_file_name, monitor='val_acc',
                                  verbose=1, save_best_only=True, mode='max')
     history = model.fit(x=x_train,
@@ -282,8 +282,8 @@ def main(is_newsgroups_dataset=False, mode='train-from-scratch'):
         model = train_CNN(texts, labels)
         model_file_name = get_model_save_name()
         model.save(model_file_name)
-    elif mode == 'train-from-scratch-2D':
-        train_2D_CNN(texts, labels)
+    elif mode == 'train-from-scratch-multi-channel':
+        train_multi_channel_CNN(texts, labels)
     elif mode == 'load-model':
         model_file_name = 'models/CNN-10-epochs-100000-rows-2019-04-14-16:27:45-567600.h5'
         model = load_model(model_file_name)

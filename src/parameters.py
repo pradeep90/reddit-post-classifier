@@ -2,17 +2,16 @@ import os
 
 IS_DEBUGGING_ON = False
 
-experiment_name = '100-rows'
-# experiment_name = '100k-rows-100-epochs'
+experiment_name = '100k-rows-10-epochs'
 # experiment_name = '1M-rows-10-epochs'
 # CNN_mode = 'train-from-scratch'
-CNN_mode = 'train-from-scratch-2D'
+CNN_mode = 'train-from-scratch-multi-channel'
 
 BASE_DIR = 'data'
 GLOVE_DIR = os.path.join(BASE_DIR, 'Glove.6B')
 TEXT_DATA_DIR = os.path.join(BASE_DIR, '20_newsgroup/20_newsgroup')
 
-if experiment_name == '100k-rows':
+if experiment_name == '100k-rows-10-epochs':
     NUM_EPOCHS = 10
     DATASET_SIZE = 100000
 elif experiment_name == '100k-rows-100-epochs':
