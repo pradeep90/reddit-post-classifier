@@ -1501,125 +1501,24 @@ Epoch 10/10
 800000/800000 [==============================] - 2298s 3ms/step - loss: 2.9480 - acc: 0.4157 - top_k_categorical_accuracy: 0.6179 - val_loss: 3.0720 - val_acc: 0.3990 - val_top_k_categorical_accuracy: 0.6005
 End: Mon Apr 15 06:52:13 EDT 2019
 
-Start: Mon Apr 15 14:36:43 EDT 2019
+Start: Mon Apr 15 19:05:20 EDT 2019
 Indexing word vectors.
-Found 2469 unique tokens.
-Shape of data tensor: (100, 1000)
-Shape of label tensor: (100, 96)
+Found 758611 unique tokens.
+Shape of data tensor: (1000000, 1000)
+Shape of label tensor: (1000000, 1013)
 Preparing embedding matrix.
 Found 400000 word vectors.
 Training model.
-Train on 80 samples, validate on 20 samples
-Epoch 1/10
+Train on 800000 samples, validate on 200000 samples
+Epoch 1/2
 
-80/80 [==============================] - 1s 14ms/step - loss: 5.5637 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.0500 - val_loss: 5.6690 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+800000/800000 [==============================] - 10489s 13ms/step - loss: 5.7267 - acc: 0.1127 - top_k_categorical_accuracy: 0.2124 - val_loss: 3.7557 - val_acc: 0.3839 - val_top_k_categorical_accuracy: 0.5714
 
-Epoch 00001: val_acc improved from -inf to 0.00000, saving model to CNN-2D-10-epochs-100-rows-2019-04-15-14:37:12-002262.h5
-Epoch 2/10
+Epoch 00001: val_acc improved from -inf to 0.38392, saving model to models/CNN-multi-channel-2-epochs-1000000-rows-300-dim-2019-04-15-19:11:09-297146.h5
+Epoch 2/2
 
-80/80 [==============================] - 1s 11ms/step - loss: 5.5798 - acc: 0.0125 - top_k_categorical_accuracy: 0.0625 - val_loss: 5.6773 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
+800000/800000 [==============================] - 10644s 13ms/step - loss: 3.1490 - acc: 0.4168 - top_k_categorical_accuracy: 0.6068 - val_loss: 2.3781 - val_acc: 0.5586 - val_top_k_categorical_accuracy: 0.7370
 
-Epoch 00002: val_acc did not improve from 0.00000
-Epoch 3/10
-
-80/80 [==============================] - 1s 11ms/step - loss: 5.4478 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.0375 - val_loss: 5.6875 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
-
-Epoch 00003: val_acc did not improve from 0.00000
-Epoch 4/10
-
-80/80 [==============================] - 1s 11ms/step - loss: 5.2517 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.0500 - val_loss: 5.6982 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
-
-Epoch 00004: val_acc did not improve from 0.00000
-Epoch 5/10
-
-80/80 [==============================] - 1s 11ms/step - loss: 5.3673 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.0750 - val_loss: 5.7111 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
-
-Epoch 00005: val_acc did not improve from 0.00000
-Epoch 6/10
-
-80/80 [==============================] - 1s 11ms/step - loss: 5.2583 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.0375 - val_loss: 5.7252 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
-
-Epoch 00006: val_acc did not improve from 0.00000
-Epoch 7/10
-
-80/80 [==============================] - 1s 11ms/step - loss: 5.1184 - acc: 0.0125 - top_k_categorical_accuracy: 0.0375 - val_loss: 5.7401 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
-
-Epoch 00007: val_acc did not improve from 0.00000
-Epoch 8/10
-
-80/80 [==============================] - 1s 11ms/step - loss: 4.9381 - acc: 0.0000e+00 - top_k_categorical_accuracy: 0.1125 - val_loss: 5.7564 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
-
-Epoch 00008: val_acc did not improve from 0.00000
-Epoch 9/10
-
-80/80 [==============================] - 1s 11ms/step - loss: 5.2182 - acc: 0.0125 - top_k_categorical_accuracy: 0.0750 - val_loss: 5.7737 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
-
-Epoch 00009: val_acc did not improve from 0.00000
-Epoch 10/10
-
-80/80 [==============================] - 1s 11ms/step - loss: 4.9540 - acc: 0.0250 - top_k_categorical_accuracy: 0.0875 - val_loss: 5.7918 - val_acc: 0.0000e+00 - val_top_k_categorical_accuracy: 0.0000e+00
-
-Epoch 00010: val_acc did not improve from 0.00000
-End: Mon Apr 15 14:37:21 EDT 2019
-
-Start: Mon Apr 15 14:39:51 EDT 2019
-Indexing word vectors.
-Found 171952 unique tokens.
-Shape of data tensor: (100000, 1000)
-Shape of label tensor: (100000, 1013)
-Preparing embedding matrix.
-Found 400000 word vectors.
-Training model.
-Train on 80000 samples, validate on 20000 samples
-Epoch 1/10
-
-80000/80000 [==============================] - 894s 11ms/step - loss: 7.0072 - acc: 0.0015 - top_k_categorical_accuracy: 0.0066 - val_loss: 6.8888 - val_acc: 0.0033 - val_top_k_categorical_accuracy: 0.0115
-
-Epoch 00001: val_acc improved from -inf to 0.00330, saving model to models/CNN-2D-10-epochs-100000-rows-2019-04-15-14:40:40-921345.h5
-Epoch 2/10
-
-80000/80000 [==============================] - 920s 11ms/step - loss: 6.8623 - acc: 0.0042 - top_k_categorical_accuracy: 0.0146 - val_loss: 6.8113 - val_acc: 0.0101 - val_top_k_categorical_accuracy: 0.0323
-
-Epoch 00002: val_acc improved from 0.00330 to 0.01015, saving model to models/CNN-2D-10-epochs-100000-rows-2019-04-15-14:40:40-921345.h5
-Epoch 3/10
-
-80000/80000 [==============================] - 911s 11ms/step - loss: 6.7389 - acc: 0.0119 - top_k_categorical_accuracy: 0.0377 - val_loss: 6.6912 - val_acc: 0.0256 - val_top_k_categorical_accuracy: 0.0693
-
-Epoch 00003: val_acc improved from 0.01015 to 0.02560, saving model to models/CNN-2D-10-epochs-100000-rows-2019-04-15-14:40:40-921345.h5
-Epoch 4/10
-
-80000/80000 [==============================] - 903s 11ms/step - loss: 6.5686 - acc: 0.0267 - top_k_categorical_accuracy: 0.0758 - val_loss: 6.4923 - val_acc: 0.0471 - val_top_k_categorical_accuracy: 0.1237
-
-Epoch 00004: val_acc improved from 0.02560 to 0.04715, saving model to models/CNN-2D-10-epochs-100000-rows-2019-04-15-14:40:40-921345.h5
-Epoch 5/10
-
-80000/80000 [==============================] - 916s 11ms/step - loss: 6.3077 - acc: 0.0466 - top_k_categorical_accuracy: 0.1220 - val_loss: 6.1951 - val_acc: 0.0698 - val_top_k_categorical_accuracy: 0.1704
-
-Epoch 00005: val_acc improved from 0.04715 to 0.06980, saving model to models/CNN-2D-10-epochs-100000-rows-2019-04-15-14:40:40-921345.h5
-Epoch 6/10
-
-80000/80000 [==============================] - 924s 12ms/step - loss: 5.9624 - acc: 0.0677 - top_k_categorical_accuracy: 0.1716 - val_loss: 5.8304 - val_acc: 0.0979 - val_top_k_categorical_accuracy: 0.2277
-
-Epoch 00006: val_acc improved from 0.06980 to 0.09795, saving model to models/CNN-2D-10-epochs-100000-rows-2019-04-15-14:40:40-921345.h5
-Epoch 7/10
-
-80000/80000 [==============================] - 917s 11ms/step - loss: 5.5857 - acc: 0.0950 - top_k_categorical_accuracy: 0.2253 - val_loss: 5.4652 - val_acc: 0.1289 - val_top_k_categorical_accuracy: 0.2816
-
-Epoch 00007: val_acc improved from 0.09795 to 0.12890, saving model to models/CNN-2D-10-epochs-100000-rows-2019-04-15-14:40:40-921345.h5
-Epoch 8/10
-
-80000/80000 [==============================] - 902s 11ms/step - loss: 5.2328 - acc: 0.1236 - top_k_categorical_accuracy: 0.2795 - val_loss: 5.1360 - val_acc: 0.1603 - val_top_k_categorical_accuracy: 0.3321
-
-Epoch 00008: val_acc improved from 0.12890 to 0.16030, saving model to models/CNN-2D-10-epochs-100000-rows-2019-04-15-14:40:40-921345.h5
-Epoch 9/10
-
-80000/80000 [==============================] - 913s 11ms/step - loss: 4.9099 - acc: 0.1552 - top_k_categorical_accuracy: 0.3306 - val_loss: 4.8412 - val_acc: 0.1974 - val_top_k_categorical_accuracy: 0.3822
-
-Epoch 00009: val_acc improved from 0.16030 to 0.19740, saving model to models/CNN-2D-10-epochs-100000-rows-2019-04-15-14:40:40-921345.h5
-Epoch 10/10
-
-80000/80000 [==============================] - 923s 12ms/step - loss: 4.6163 - acc: 0.1903 - top_k_categorical_accuracy: 0.3798 - val_loss: 4.5727 - val_acc: 0.2263 - val_top_k_categorical_accuracy: 0.4223
-
-Epoch 00010: val_acc improved from 0.19740 to 0.22630, saving model to models/CNN-2D-10-epochs-100000-rows-2019-04-15-14:40:40-921345.h5
-End: Mon Apr 15 17:12:52 EDT 2019
+Epoch 00002: val_acc improved from 0.38392 to 0.55859, saving model to models/CNN-multi-channel-2-epochs-1000000-rows-300-dim-2019-04-15-19:11:09-297146.h5
+End: Tue Apr 16 01:03:26 EDT 2019
 

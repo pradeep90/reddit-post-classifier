@@ -82,7 +82,7 @@ def get_texts_and_labels():
 
 def get_embeddings_index():
     embeddings_index = {}
-    with open(os.path.join(GLOVE_DIR, 'glove.6B.100d.txt')) as f:
+    with open(os.path.join(GLOVE_DIR, f'glove.6B.{EMBEDDING_DIM}d.txt')) as f:
         for line in f:
             word, coefs = line.split(maxsplit=1)
             coefs = np.fromstring(coefs, 'f', sep=' ')
@@ -263,7 +263,10 @@ def train_multi_channel_CNN(texts, labels):
                         epochs=NUM_EPOCHS)
 
 def get_model_save_name(basename='CNN'):
-    return f'models/{basename}-{NUM_EPOCHS}-epochs-{DATASET_SIZE}-rows-{get_dashed_time()}.h5'
+    if EMBEDDING_DIM == 300:
+        return f'models/{basename}-{NUM_EPOCHS}-epochs-{DATASET_SIZE}-rows-{EMBEDDING_DIM}-dim-{get_dashed_time()}.h5'
+    else:
+        return f'models/{basename}-{NUM_EPOCHS}-epochs-{DATASET_SIZE}-rows-{get_dashed_time()}.h5'
 
 def main(is_newsgroups_dataset=False, mode='train-from-scratch'):
     # first, build index mapping words in the embeddings set
