@@ -3,9 +3,11 @@ import os
 IS_DEBUGGING_ON = False
 
 # experiment_name = '100-rows-300-dim'
+# experiment_name = '1k-rows-300-dim'
+# experiment_name = '10k-rows-300-dim'
 # experiment_name = '100k-rows-10-epochs'
-# experiment_name = '1M-rows-10-epochs'
-experiment_name = '1M-rows-2-epochs-300-dim'
+experiment_name = '1M-rows-10-epochs'
+# experiment_name = '1M-rows-2-epochs-300-dim'
 # CNN_mode = 'train-from-scratch'
 CNN_mode = 'train-from-scratch-multi-channel'
 
@@ -16,8 +18,21 @@ TEXT_DATA_DIR = os.path.join(BASE_DIR, '20_newsgroup/20_newsgroup')
 EMBEDDING_DIM = 100
 MAX_SEQUENCE_LENGTH = 1000
 MAX_NUM_WORDS = 20000
-VALIDATION_SPLIT = 0.2
+TEST_FRACTION = 0.1
+VALIDATION_FRACTION = 0.2
 BATCH_SIZE = 128
+NEED_SMALL_POSTS = False
+STOP_WORDS = 'english'
+MAX_DF = 0.5
+MIN_DF = 5
+TRAINING_FRACTION = 1.0
+
+# TRADITIONAL_MODEL_NAME = 'LR'
+TRADITIONAL_MODEL_NAME = 'NBC'
+# TRADITIONAL_MODEL_NAME = 'LR_CV'
+
+if TRADITIONAL_MODEL_NAME == 'NBC':
+    MAX_NUM_WORDS = 100000
 
 if experiment_name == '100k-rows-10-epochs':
     NUM_EPOCHS = 10
@@ -38,6 +53,14 @@ elif experiment_name == '10k-rows':
 elif experiment_name == '100-rows-300-dim':
     NUM_EPOCHS = 10
     DATASET_SIZE = 100
+    EMBEDDING_DIM = 300
+elif experiment_name == '1k-rows-300-dim':
+    NUM_EPOCHS = 10
+    DATASET_SIZE = 1000
+    EMBEDDING_DIM = 300
+elif experiment_name == '10k-rows-300-dim':
+    NUM_EPOCHS = 10
+    DATASET_SIZE = 10000
     EMBEDDING_DIM = 300
 else:
     assert experiment_name == '100-rows'

@@ -1685,3 +1685,18 @@ precision@3 = 0.85937
 precision@5 = 0.893805
 End: Wed Apr 17 16:46:36 EDT 2019
 
+Start: Wed Apr 17 17:24:53 EDT 2019
+model MultinomialNB(alpha=0.1, class_prior=None, fit_prior=True)
+DATASET_SIZE: 1000000
+experiment_name: 1M-rows-10-epochs
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+TRAINING_FRACTION: 1.0
+training_set_size: 720000
+Validation set: precision@1 = 0.7369111111111111
+precision@3 = 0.8589166666666667
+precision@5 = 0.8930944444444444
+Test set: precision@1 = 0.73543
+precision@3 = 0.85908
+precision@5 = 0.89345
+End: Wed Apr 17 17:36:54 EDT 2019

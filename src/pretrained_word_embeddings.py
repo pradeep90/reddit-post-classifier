@@ -119,7 +119,7 @@ def get_vectorized_text_and_labels(texts, labels):
     np.random.shuffle(indices)
     data = data[indices]
     labels = labels[indices]
-    num_validation_samples = int(VALIDATION_SPLIT * data.shape[0])
+    num_validation_samples = int(VALIDATION_FRACTION * data.shape[0])
 
     x_train = data[:-num_validation_samples]
     y_train = labels[:-num_validation_samples]
