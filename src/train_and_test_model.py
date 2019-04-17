@@ -7,7 +7,8 @@ from parameters import *
 def get_model(name='NBC'):
     model = None
     if name == 'NBC':
-        model = MultinomialNB(alpha=0.1)
+        print(f'NB_ALPHA: {NB_ALPHA}')
+        model = MultinomialNB(alpha=NB_ALPHA)
     elif name == 'LR':
         model = LogisticRegression(solver='sag')
     elif name == 'LR_CV':
@@ -51,15 +52,16 @@ def main():
     print('model', model)
     print(f'DATASET_SIZE: {DATASET_SIZE}\nexperiment_name: {experiment_name}')
 
-    validation_set_size = int(VALIDATION_FRACTION * X_train.shape[0])
-    X_val = X_train[-validation_set_size:]
-    y_val = y_train[-validation_set_size:]
-    training_set_size = int(TRAINING_FRACTION * (1-VALIDATION_FRACTION) * X_train.shape[0])
-    X_train = X_train[:training_set_size]
-    y_train = y_train[:training_set_size]
+    for training_fraction in TRAINING_FRACTION_LIST:
+        validation_set_size = int(VALIDATION_FRACTION * X_train.shape[0])
+        X_val = X_train[-validation_set_size:]
+        y_val = y_train[-validation_set_size:]
+        training_set_size = int(training_fraction * (1-VALIDATION_FRACTION) * X_train.shape[0])
+        X_current_train = X_train[:training_set_size]
+        y_current_train = y_train[:training_set_size]
 
-    print(f'VALIDATION_FRACTION: {VALIDATION_FRACTION}\nvalidation_set_size: {validation_set_size}\nTRAINING_FRACTION: {TRAINING_FRACTION}\ntraining_set_size: {training_set_size}')
-    train_and_test_model(model, X_train, y_train, X_val, y_val, X_test, y_test)
+        print(f'VALIDATION_FRACTION: {VALIDATION_FRACTION}\nvalidation_set_size: {validation_set_size}\ntraining_fraction: {training_fraction}\ntraining_set_size: {training_set_size}\n\n')
+        train_and_test_model(model, X_current_train, y_current_train, X_val, y_val, X_test, y_test)
 
 if __name__ == '__main__':
     main()
