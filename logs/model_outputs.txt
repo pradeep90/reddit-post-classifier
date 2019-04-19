@@ -2229,3 +2229,147 @@ precision@5 = 0.8259
 
 End: Fri Apr 19 17:39:49 EDT 2019
 
+
+Start: Fri Apr 19 18:25:48 EDT 2019
+NB_ALPHA: 0.1
+
+Start: Fri Apr 19 18:29:11 EDT 2019
+NB_ALPHA: 0.1
+model MultinomialNB(alpha=0.1, class_prior=None, fit_prior=True)
+DATASET_SIZE: 1000000
+experiment_name: 1M-rows-10-epochs
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 0.025
+training_set_size: 18000
+
+
+Training set:
+precision@1 = 0.9989444444444444
+precision@3 = 0.9999444444444444
+precision@5 = 1.0
+Validation set:
+precision@1 = 0.40434444444444445
+precision@3 = 0.5348388888888889
+precision@5 = 0.5882444444444445
+Test set:
+precision@1 = 0.40342
+precision@3 = 0.53485
+precision@5 = 0.58738
+
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 0.05
+training_set_size: 36000
+
+
+Training set:
+precision@1 = 0.9980277777777777
+precision@3 = 0.9997777777777778
+precision@5 = 0.9999166666666667
+Validation set:
+precision@1 = 0.5332111111111111
+precision@3 = 0.6733666666666667
+precision@5 = 0.7244722222222222
+Test set:
+precision@1 = 0.53169
+precision@3 = 0.67255
+precision@5 = 0.72416
+
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 0.075
+training_set_size: 54000
+
+
+Training set:
+precision@1 = 0.9962777777777778
+precision@3 = 0.9995740740740741
+precision@5 = 0.9998333333333334
+Validation set:
+precision@1 = 0.5837222222222223
+precision@3 = 0.7267888888888889
+precision@5 = 0.7764111111111112
+Test set:
+precision@1 = 0.58264
+precision@3 = 0.72448
+precision@5 = 0.77479
+
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 0.1
+training_set_size: 72000
+
+
+Training set:
+precision@1 = 0.9945694444444444
+precision@3 = 0.999375
+precision@5 = 0.9995833333333334
+Validation set:
+precision@1 = 0.61355
+precision@3 = 0.7551611111111111
+precision@5 = 0.8024055555555556
+Test set:
+precision@1 = 0.61228
+precision@3 = 0.75441
+precision@5 = 0.80193
+
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 0.15
+training_set_size: 108000
+
+
+Training set:
+precision@1 = 0.9906574074074074
+precision@3 = 0.9989537037037037
+precision@5 = 0.9993981481481482
+Validation set:
+precision@1 = 0.6529777777777778
+precision@3 = 0.7900166666666667
+precision@5 = 0.8334
+Test set:
+precision@1 = 0.65067
+precision@3 = 0.78825
+precision@5 = 0.83226
+
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 0.2
+training_set_size: 144000
+
+
+Training set:
+precision@1 = 0.9863125
+precision@3 = 0.9984930555555556
+precision@5 = 0.99925
+Validation set:
+precision@1 = 0.6718388888888889
+precision@3 = 0.8065777777777777
+precision@5 = 0.8481388888888889
+Test set:
+precision@1 = 0.67014
+precision@3 = 0.80519
+precision@5 = 0.84762
+
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 1.0
+training_set_size: 720000
+
+
+Training set:
+precision@1 = 0.9386194444444445
+precision@3 = 0.9849819444444444
+precision@5 = 0.9919013888888889
+Validation set:
+precision@1 = 0.7369111111111111
+precision@3 = 0.8589166666666667
+precision@5 = 0.8930944444444444
+Test set:
+precision@1 = 0.73543
+precision@3 = 0.85908
+precision@5 = 0.89345
+
+End: Fri Apr 19 19:06:01 EDT 2019
+
