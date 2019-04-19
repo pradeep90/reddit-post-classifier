@@ -54,22 +54,22 @@ def train_and_test_model(model, X_train, y_train, X_val, y_val, X_test, y_test):
     return model
 
 def main():
-    model = get_model(TRADITIONAL_MODEL_NAME)
+    for post_field_used in POST_FIELDS_USED_LIST:
+        model = get_model(TRADITIONAL_MODEL_NAME)
+        (X_train, y_train, X_test, y_test) = get_vectorized_training_and_test_set(post_field_used=post_field_used)
+        print('model', model, flush=True)
+        print(f'DATASET_SIZE: {DATASET_SIZE}\nexperiment_name: {experiment_name}\npost_field_used: {post_field_used}', flush=True)
 
-    (X_train, y_train, X_test, y_test) = get_vectorized_training_and_test_set()
-    print('model', model, flush=True)
-    print(f'DATASET_SIZE: {DATASET_SIZE}\nexperiment_name: {experiment_name}', flush=True)
+        for training_fraction in TRAINING_FRACTION_LIST:
+            validation_set_size = int(VALIDATION_FRACTION * X_train.shape[0])
+            X_val = X_train[-validation_set_size:]
+            y_val = y_train[-validation_set_size:]
+            training_set_size = int(training_fraction * (1-VALIDATION_FRACTION) * X_train.shape[0])
+            X_current_train = X_train[:training_set_size]
+            y_current_train = y_train[:training_set_size]
 
-    for training_fraction in TRAINING_FRACTION_LIST:
-        validation_set_size = int(VALIDATION_FRACTION * X_train.shape[0])
-        X_val = X_train[-validation_set_size:]
-        y_val = y_train[-validation_set_size:]
-        training_set_size = int(training_fraction * (1-VALIDATION_FRACTION) * X_train.shape[0])
-        X_current_train = X_train[:training_set_size]
-        y_current_train = y_train[:training_set_size]
-
-        print(f'VALIDATION_FRACTION: {VALIDATION_FRACTION}\nvalidation_set_size: {validation_set_size}\ntraining_fraction: {training_fraction}\ntraining_set_size: {training_set_size}\n\n', flush=True)
-        train_and_test_model(model, X_current_train, y_current_train, X_val, y_val, X_test, y_test)
+            print(f'VALIDATION_FRACTION: {VALIDATION_FRACTION}\nvalidation_set_size: {validation_set_size}\ntraining_fraction: {training_fraction}\ntraining_set_size: {training_set_size}\n\n', flush=True)
+            train_and_test_model(model, X_current_train, y_current_train, X_val, y_val, X_test, y_test)
 
 if __name__ == '__main__':
     main()

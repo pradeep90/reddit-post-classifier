@@ -1,4 +1,5 @@
 import os
+import enum
 
 IS_DEBUGGING_ON = False
 
@@ -28,13 +29,23 @@ MAX_DF = 0.5
 MIN_DF = 5
 TRAINING_FRACTION = 1.0
 # TRAINING_FRACTION_LIST = [0.025, 0.05, 0.075, 0.1, 0.15, 0.2, 1.0]
-TRAINING_FRACTION_LIST = [0.1]
+TRAINING_FRACTION_LIST = [1.0]
 NB_ALPHA = 0.1
 # LR_C = 1e-4
 # LR_C = 1e-2
 # LR_C = 1 # Default
 LR_C = 1e2
 # LR_C = 1e4
+
+class PostFieldsUsed(enum.Enum):
+    only_title = 1
+    only_body = 2
+    both_title_and_body = 3
+
+# POST_FIELDS_USED_LIST = [PostFieldsUsed.both_title_and_body]
+POST_FIELDS_USED_LIST = [PostFieldsUsed.only_title,
+                         PostFieldsUsed.only_body,
+                         PostFieldsUsed.both_title_and_body]
 
 # TRADITIONAL_MODEL_NAME = 'LR'
 TRADITIONAL_MODEL_NAME = 'NBC'
