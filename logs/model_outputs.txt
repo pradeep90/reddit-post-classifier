@@ -2123,3 +2123,109 @@ precision@3 = 0.85063
 precision@5 = 0.8867
 End: Wed Apr 17 20:37:03 EDT 2019
 
+Start: Fri Apr 19 01:10:11 EDT 2019
+LR_C: 1
+model LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+DATASET_SIZE: 1000000
+experiment_name: 1M-rows-10-epochs
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 0.1
+training_set_size: 72000
+
+
+Validation set:
+precision@1 = 0.5852722222222222
+precision@3 = 0.7482777777777778
+precision@5 = 0.8000666666666667
+Test set:
+precision@1 = 0.58225
+precision@3 = 0.74693
+precision@5 = 0.79945
+
+
+End: Fri Apr 19 01:43:15 EDT 2019
+
+Start: Fri Apr 19 03:34:42 EDT 2019
+LR_C: 0.0001
+model LogisticRegression(C=0.0001, class_weight=None, dual=False,
+          fit_intercept=True, intercept_scaling=1, max_iter=100,
+          multi_class='warn', n_jobs=None, penalty='l2', random_state=None,
+          solver='sag', tol=0.0001, verbose=0, warm_start=False)
+DATASET_SIZE: 1000000
+experiment_name: 1M-rows-10-epochs
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 0.1
+training_set_size: 72000
+
+
+Validation set:
+precision@1 = 0.0013555555555555556
+precision@3 = 0.0029444444444444444
+precision@5 = 0.004955555555555556
+Test set:
+precision@1 = 0.00147
+precision@3 = 0.00307
+precision@5 = 0.00494
+
+
+End: Fri Apr 19 05:07:40 EDT 2019
+
+
+Start: Fri Apr 19 05:24:31 EDT 2019
+LR_C: 0.01
+model LogisticRegression(C=0.01, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+DATASET_SIZE: 1000000
+experiment_name: 1M-rows-10-epochs
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 0.1
+training_set_size: 72000
+
+
+Validation set:
+precision@1 = 0.016955555555555557
+precision@3 = 0.01826111111111111
+precision@5 = 0.026394444444444446
+Test set:
+precision@1 = 0.017
+precision@3 = 0.01832
+precision@5 = 0.02647
+
+
+End: Fri Apr 19 06:47:10 EDT 2019
+
+
+Start: Fri Apr 19 14:28:53 EDT 2019
+LR_C: 100.0
+model LogisticRegression(C=100.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+DATASET_SIZE: 1000000
+experiment_name: 1M-rows-10-epochs
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 0.1
+training_set_size: 72000
+
+
+Validation set:
+precision@1 = 0.6492166666666667
+precision@3 = 0.7864
+precision@5 = 0.82605
+Test set:
+precision@1 = 0.64753
+precision@3 = 0.78494
+precision@5 = 0.8259
+
+
+End: Fri Apr 19 17:39:49 EDT 2019
+
