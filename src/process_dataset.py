@@ -7,17 +7,17 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from parameters import *
 
-def join_text(row):
-    if NEED_SMALL_POSTS:
-        return row['title'][:100] + " " + row['selftext'][:512]
+def join_text(row, post_field_used=PostFieldsUsed.both_title_and_body):
+    if post_field_used is PostFieldsUsed.only_title:
+        return row['title']
+    elif post_field_used is PostFieldsUsed.only_body:
+        return row['selftext']
     else:
-        return row['title'] + " " + row['selftext']
+        return row['title'] + ' ' + row['selftext']
 
-def get_reddit_dataset(dataset_name='data/rspct.tsv', size=DATASET_SIZE):
+def get_reddit_dataset(dataset_name='data/rspct.tsv', size=DATASET_SIZE,
+                       post_field_used=PostFieldsUsed.both_title_and_body):
     rspct_df = pd.read_csv(dataset_name, sep='\t')
-
-    # DATASET_SIZE = 100
-    # DATASET_SIZE = 100000
 
     if IS_DEBUGGING_ON:
         print('Dataset size:', size)
@@ -25,7 +25,8 @@ def get_reddit_dataset(dataset_name='data/rspct.tsv', size=DATASET_SIZE):
     if size is not None:
         rspct_df = rspct_df.head(size)
 
-    rspct_df['text'] = rspct_df[['title', 'selftext']].apply(join_text, axis=1)
+    rspct_df['text'] = rspct_df[['title', 'selftext']].apply(lambda row: join_text(row, post_field_used),
+                                                             axis=1)
 
     return rspct_df
 
@@ -39,7 +40,8 @@ def get_label_encoded_training_test_sets(df, input_col='text', output_col='subre
                                                         test_size=TEST_FRACTION, random_state=42)
     return (X_train, X_test, *label_encode(y_train, y_test))
 
-def get_vectorized_training_and_test_set(dataset_name='data/rspct.tsv'):
+def get_vectorized_training_and_test_set(dataset_name='data/rspct.tsv',
+                                         post_field_used=PostFieldsUsed.both_title_and_body):
     """Return vectorized, label-encoded training and test set with labels."""
 
     # print(os.listdir("../input"))
@@ -49,7 +51,7 @@ def get_vectorized_training_and_test_set(dataset_name='data/rspct.tsv'):
     # set this as False if you are running on a computer with a lot of RAM
     # it should be possible to use less memory in this kernel using generators
     # rather than storing everything in RAM, but we won't explore that here
-    rspct_df = get_reddit_dataset(dataset_name)
+    rspct_df = get_reddit_dataset(dataset_name, post_field_used=post_field_used)
 
     X_train, X_test, y_train, y_test = get_label_encoded_training_test_sets(rspct_df)
 
