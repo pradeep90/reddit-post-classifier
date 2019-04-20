@@ -16,10 +16,15 @@ CNN_mode = 'train-from-scratch-multi-channel'
 BASE_DIR = 'data'
 GLOVE_DIR = os.path.join(BASE_DIR, 'Glove.6B')
 TEXT_DATA_DIR = os.path.join(BASE_DIR, '20_newsgroup/20_newsgroup')
+# MODEL_DUMP_DIR = '/homes/sriniv68/scratch/Downloads/Data-Mining-Model-Dumps'
+MODEL_DUMP_DIR = 'models'
+
+# DATASET_DIR = 'data'
+DATASET_DIR = '/homes/sriniv68/scratch/Downloads/Data-Mining-Model-Dumps'
+DATA_FILE_NAME = 'rspct_preprocessed_stemmed.tsv'
 
 EMBEDDING_DIM = 100
 MAX_SEQUENCE_LENGTH = 1000
-MAX_NUM_WORDS = 20000
 TEST_FRACTION = 0.1
 VALIDATION_FRACTION = 0.2
 BATCH_SIZE = 128
@@ -42,17 +47,26 @@ class PostFieldsUsed(enum.Enum):
     only_body = 2
     both_title_and_body = 3
 
-# POST_FIELDS_USED_LIST = [PostFieldsUsed.both_title_and_body]
-POST_FIELDS_USED_LIST = [PostFieldsUsed.only_title,
-                         PostFieldsUsed.only_body,
-                         PostFieldsUsed.both_title_and_body]
+POST_FIELDS_USED_LIST = [PostFieldsUsed.both_title_and_body]
+# POST_FIELDS_USED_LIST = [PostFieldsUsed.only_title,
+#                          PostFieldsUsed.only_body,
+#                          PostFieldsUsed.both_title_and_body]
 
-TRADITIONAL_MODEL_NAME = 'LR'
-# TRADITIONAL_MODEL_NAME = 'NBC'
+# TRADITIONAL_MODEL_NAME = 'LR'
+TRADITIONAL_MODEL_NAME = 'NBC'
 # TRADITIONAL_MODEL_NAME = 'LR_CV'
 
+SHOULD_SAVE_MODEL = True
+# SHOULD_SAVE_MODEL = False
+
+HAVE_FEW_FEATURES = True
+
+MAX_NUM_WORDS = 20000
 if TRADITIONAL_MODEL_NAME == 'NBC':
-    MAX_NUM_WORDS = 100000
+    if HAVE_FEW_FEATURES:
+        MAX_NUM_WORDS = 5000
+    else:
+        MAX_NUM_WORDS = 100000
 
 if experiment_name == '100k-rows-10-epochs':
     NUM_EPOCHS = 10

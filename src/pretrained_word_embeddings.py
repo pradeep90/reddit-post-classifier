@@ -39,7 +39,7 @@ from process_dataset import get_label_encoded_training_test_sets, get_reddit_dat
 import pandas as pd
 import unittest
 from parameters import *
-from utils import get_dashed_time
+from utils import get_dashed_time, get_model_save_name
 
 class CNNTest(unittest.TestCase):
     def test_get_labels_index(self):
@@ -261,12 +261,6 @@ def train_multi_channel_CNN(texts, labels):
                         batch_size=BATCH_SIZE,
                         callbacks=[checkpoint],
                         epochs=NUM_EPOCHS)
-
-def get_model_save_name(basename='CNN'):
-    if EMBEDDING_DIM == 300:
-        return f'models/{basename}-{NUM_EPOCHS}-epochs-{DATASET_SIZE}-rows-{EMBEDDING_DIM}-dim-{get_dashed_time()}.h5'
-    else:
-        return f'models/{basename}-{NUM_EPOCHS}-epochs-{DATASET_SIZE}-rows-{get_dashed_time()}.h5'
 
 def main(is_newsgroups_dataset=False, mode='train-from-scratch'):
     # first, build index mapping words in the embeddings set

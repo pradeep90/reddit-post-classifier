@@ -6,6 +6,8 @@ from sklearn.feature_selection import chi2, SelectKBest
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from parameters import *
+from joblib import dump, load
+from utils import get_model_save_name
 
 def join_text(row, post_field_used=PostFieldsUsed.both_title_and_body):
     if post_field_used is PostFieldsUsed.only_title:
@@ -13,7 +15,7 @@ def join_text(row, post_field_used=PostFieldsUsed.both_title_and_body):
     elif post_field_used is PostFieldsUsed.only_body:
         return row['selftext']
     else:
-        return row['title'] + ' ' + row['selftext']
+        return str(row['title']) + ' ' + row['selftext']
 
 def get_reddit_dataset(dataset_name='data/rspct.tsv', size=DATASET_SIZE,
                        post_field_used=PostFieldsUsed.both_title_and_body):
@@ -33,6 +35,8 @@ def get_reddit_dataset(dataset_name='data/rspct.tsv', size=DATASET_SIZE,
 def label_encode(y_train, y_test):
     le = LabelEncoder()
     le.fit(pd.concat([y_train, y_test]))
+    if SHOULD_SAVE_MODEL:
+        dump(le, get_model_save_name(basename='label-encoder', suffix='joblib'))
     return (le.transform(y_train), le.transform(y_test))
 
 def get_label_encoded_training_test_sets(df, input_col='text', output_col='subreddit'):
@@ -78,6 +82,8 @@ def get_vectorized_training_and_test_set(dataset_name='data/rspct.tsv',
                                 )
 
     X_train = tf_idf_vectorizer.fit_transform(X_train)
-    X_test  = tf_idf_vectorizer.transform(X_test)
+    if SHOULD_SAVE_MODEL:
+        dump(tf_idf_vectorizer, get_model_save_name(basename='tfidf-vectorizer', suffix='joblib'))
+    X_test = tf_idf_vectorizer.transform(X_test)
 
     return (X_train, y_train, X_test, y_test)
