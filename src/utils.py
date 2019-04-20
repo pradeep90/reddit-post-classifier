@@ -3,6 +3,7 @@ import unittest
 from pandas import DataFrame
 import datetime
 import re
+from parameters import *
 
 class UtilsTest(unittest.TestCase):
     def test_assertDataFrameEqual(self):
@@ -30,3 +31,9 @@ def assertDataFrameEqual(df, xs):
 
 def get_dashed_time():
     return '-'.join(re.split('[ .]', str(datetime.datetime.now())))
+
+def get_model_save_name(basename='CNN', suffix='.h5'):
+    if EMBEDDING_DIM == 300:
+        return f'{MODEL_DUMP_DIR}/{basename}-{NUM_EPOCHS}-epochs-{DATASET_SIZE}-rows-{EMBEDDING_DIM}-dim-{get_dashed_time()}.{suffix}'
+    else:
+        return f'{MODEL_DUMP_DIR}/{basename}-{NUM_EPOCHS}-epochs-{DATASET_SIZE}-rows-{get_dashed_time()}.{suffix}'
