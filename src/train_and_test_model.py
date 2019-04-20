@@ -65,7 +65,7 @@ def main():
             post_field_used=post_field_used)
         print('model', model, flush=True)
         print(f'DATASET_SIZE: {DATASET_SIZE}\nexperiment_name: {experiment_name}\npost_field_used: {post_field_used}', flush=True)
-        print(f'MAX_NUM_WORDS: {MAX_NUM_WORDS}', flush=True)
+        print(f'MAX_NUM_WORDS: {MAX_NUM_WORDS}\nDATA_FILE_NAME: {DATA_FILE_NAME}', flush=True)
 
         for training_fraction in TRAINING_FRACTION_LIST:
             validation_set_size = int(VALIDATION_FRACTION * X_train.shape[0])

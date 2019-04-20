@@ -2532,3 +2532,149 @@ precision@5 = 0.88825
 
 End: Sat Apr 20 09:37:03 EDT 2019
 
+
+Start: Sat Apr 20 14:08:32 EDT 2019
+model MultinomialNB(alpha=0.1, class_prior=None, fit_prior=True)
+DATASET_SIZE: 1000000
+experiment_name: 1M-rows-10-epochs
+post_field_used: PostFieldsUsed.both_title_and_body
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 1.0
+training_set_size: 720000
+
+
+Training set:
+precision@1 = 0.9386194444444445
+precision@3 = 0.9849819444444444
+precision@5 = 0.9919013888888889
+Validation set:
+precision@1 = 0.7369111111111111
+precision@3 = 0.8589166666666667
+precision@5 = 0.8930944444444444
+Test set:
+precision@1 = 0.73543
+precision@3 = 0.85908
+precision@5 = 0.89345
+
+End: Sat Apr 20 15:54:30 EDT 2019
+
+Start: Sat Apr 20 17:44:20 EDT 2019
+NB_ALPHA: 0.1
+
+Start: Sat Apr 20 18:00:06 EDT 2019
+NB_ALPHA: 0.1
+model MultinomialNB(alpha=0.1, class_prior=None, fit_prior=True)
+DATASET_SIZE: 1000
+experiment_name: 1k-rows-300-dim
+post_field_used: PostFieldsUsed.both_title_and_body
+MAX_NUM_WORDS: 5000
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180
+training_fraction: 1.0
+training_set_size: 720
+
+
+Training set:
+precision@1 = 0.030555555555555555
+precision@3 = 0.03333333333333333
+precision@5 = 0.03333333333333333
+Validation set:
+precision@1 = 0.005555555555555556
+precision@3 = 0.016666666666666666
+precision@5 = 0.016666666666666666
+Test set:
+precision@1 = 0.0
+precision@3 = 0.01
+precision@5 = 0.01
+
+End: Sat Apr 20 18:00:27 EDT 2019
+
+
+Start: Sat Apr 20 18:00:39 EDT 2019
+NB_ALPHA: 0.1
+model MultinomialNB(alpha=0.1, class_prior=None, fit_prior=True)
+DATASET_SIZE: 100000
+experiment_name: 100k-rows-10-epochs
+post_field_used: PostFieldsUsed.both_title_and_body
+MAX_NUM_WORDS: 5000
+VALIDATION_FRACTION: 0.2
+validation_set_size: 18000
+training_fraction: 1.0
+training_set_size: 72000
+
+
+Training set:
+precision@1 = 0.954875
+precision@3 = 0.9897083333333333
+precision@5 = 0.9945
+Validation set:
+precision@1 = 0.4246111111111111
+precision@3 = 0.5759444444444445
+precision@5 = 0.6377222222222222
+Test set:
+precision@1 = 0.4161
+precision@3 = 0.5631
+precision@5 = 0.6277
+
+End: Sat Apr 20 18:02:01 EDT 2019
+
+
+Start: Sat Apr 20 18:29:24 EDT 2019
+NB_ALPHA: 0.1
+model MultinomialNB(alpha=0.1, class_prior=None, fit_prior=True)
+DATASET_SIZE: 100000
+experiment_name: 100k-rows-10-epochs
+post_field_used: PostFieldsUsed.both_title_and_body
+MAX_NUM_WORDS: 5000
+DATA_FILE_NAME: rspct.tsv
+VALIDATION_FRACTION: 0.2
+validation_set_size: 18000
+training_fraction: 1.0
+training_set_size: 72000
+
+
+Training set:
+precision@1 = 0.954875
+precision@3 = 0.9897083333333333
+precision@5 = 0.9945
+Validation set:
+precision@1 = 0.4246111111111111
+precision@3 = 0.5759444444444445
+precision@5 = 0.6377222222222222
+Test set:
+precision@1 = 0.4161
+precision@3 = 0.5631
+precision@5 = 0.6277
+
+End: Sat Apr 20 18:31:13 EDT 2019
+
+
+Start: Sat Apr 20 19:09:31 EDT 2019
+NB_ALPHA: 0.1
+model MultinomialNB(alpha=0.1, class_prior=None, fit_prior=True)
+DATASET_SIZE: 100000
+experiment_name: 100k-rows-10-epochs
+post_field_used: PostFieldsUsed.both_title_and_body
+MAX_NUM_WORDS: 5000
+DATA_FILE_NAME: rspct_preprocessed_stemmed.tsv
+VALIDATION_FRACTION: 0.2
+validation_set_size: 18000
+training_fraction: 1.0
+training_set_size: 72000
+
+
+Training set:
+precision@1 = 0.9548611111111112
+precision@3 = 0.9902777777777778
+precision@5 = 0.995125
+Validation set:
+precision@1 = 0.4895
+precision@3 = 0.643
+precision@5 = 0.7018333333333333
+Test set:
+precision@1 = 0.4821
+precision@3 = 0.6343
+precision@5 = 0.696
+
+End: Sat Apr 20 19:11:13 EDT 2019

@@ -141,6 +141,24 @@ def plot_class_distribution(labels):
     plt.xticks(idx, idx)
     plt.show()
 
+def plot_coefficients(classifier, dim, feature_names, label_encoder, top_features=20):
+    coef = classifier.coef_[dim].ravel()
+    top_positive_coefficients = list(reversed(np.argsort(coef)[-top_features:]))
+    top_negative_coefficients = np.argsort(coef)[:top_features]
+    # top_coefficients = np.hstack([top_negative_coefficients, top_positive_coefficients])
+    top_coefficients = np.hstack([top_positive_coefficients])
+    # create plot
+    plt.figure()
+    # colors = ['red' if c < 0 else 'blue' for c in coef[top_coefficients]]
+    colors = ['blue']
+    plt.bar(np.arange(top_features), coef[top_coefficients], color=colors)
+    feature_names = np.array(feature_names)
+    plt.xticks(np.arange(1, 1 + top_features), feature_names[top_coefficients], rotation=60, ha='right')
+    print(f'{list(zip(feature_names[top_coefficients], coef[top_coefficients]))}')
+    plt.tight_layout()
+    plt.savefig(f'coefficients-{label_encoder.inverse_transform([dim])[0]}-dim-{dim}.png')
+    plt.close()
+
 def main():
     # Assumption: We are running this file from the root of the project.
     dataset_file_name = 'data/rspct.tsv'
