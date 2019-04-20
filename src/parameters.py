@@ -33,8 +33,8 @@ TRAINING_FRACTION_LIST = [1.0]
 NB_ALPHA = 0.1
 # LR_C = 1e-4
 # LR_C = 1e-2
-# LR_C = 1 # Default
-LR_C = 1e2
+LR_C = 1 # Default
+# LR_C = 1e2
 # LR_C = 1e4
 
 class PostFieldsUsed(enum.Enum):
@@ -47,8 +47,8 @@ POST_FIELDS_USED_LIST = [PostFieldsUsed.only_title,
                          PostFieldsUsed.only_body,
                          PostFieldsUsed.both_title_and_body]
 
-# TRADITIONAL_MODEL_NAME = 'LR'
-TRADITIONAL_MODEL_NAME = 'NBC'
+TRADITIONAL_MODEL_NAME = 'LR'
+# TRADITIONAL_MODEL_NAME = 'NBC'
 # TRADITIONAL_MODEL_NAME = 'LR_CV'
 
 if TRADITIONAL_MODEL_NAME == 'NBC':
