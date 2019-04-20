@@ -2448,3 +2448,87 @@ precision@5 = 0.89345
 
 End: Fri Apr 19 20:32:11 EDT 2019
 
+Start: Fri Apr 19 21:21:12 EDT 2019
+LR_C: 1
+model LogisticRegression(C=1, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+DATASET_SIZE: 1000000
+experiment_name: 1M-rows-10-epochs
+post_field_used: PostFieldsUsed.only_title
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 1.0
+training_set_size: 720000
+
+
+Training set:
+precision@1 = 0.5052555555555556
+precision@3 = 0.6426652777777778
+precision@5 = 0.7002125
+Validation set:
+precision@1 = 0.4407888888888889
+precision@3 = 0.5513444444444444
+precision@5 = 0.59335
+Test set:
+precision@1 = 0.43881
+precision@3 = 0.54962
+precision@5 = 0.5919
+
+LR_C: 1
+model LogisticRegression(C=1, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+DATASET_SIZE: 1000000
+experiment_name: 1M-rows-10-epochs
+post_field_used: PostFieldsUsed.only_body
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 1.0
+training_set_size: 720000
+
+
+Training set:
+precision@1 = 0.7619361111111111
+precision@3 = 0.8946583333333333
+precision@5 = 0.9274138888888889
+Validation set:
+precision@1 = 0.6765222222222222
+precision@3 = 0.8161888888888889
+precision@5 = 0.8558833333333333
+Test set:
+precision@1 = 0.6749
+precision@3 = 0.81521
+precision@5 = 0.85698
+
+LR_C: 1
+model LogisticRegression(C=1, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=0, warm_start=False)
+DATASET_SIZE: 1000000
+experiment_name: 1M-rows-10-epochs
+post_field_used: PostFieldsUsed.both_title_and_body
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 1.0
+training_set_size: 720000
+
+
+Training set:
+precision@1 = 0.7922763888888888
+precision@3 = 0.9173666666666667
+precision@5 = 0.9451930555555556
+Validation set:
+precision@1 = 0.7158277777777777
+precision@3 = 0.8529277777777777
+precision@5 = 0.8877833333333334
+Test set:
+precision@1 = 0.71396
+precision@3 = 0.85152
+precision@5 = 0.88825
+
+End: Sat Apr 20 09:37:03 EDT 2019
+
