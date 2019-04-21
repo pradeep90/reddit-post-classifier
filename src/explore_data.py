@@ -142,6 +142,7 @@ def plot_class_distribution(labels):
     plt.show()
 
 def plot_coefficients(classifier, dim, feature_names, label_encoder, top_features=20):
+    """Source: https://medium.com/@aneesha/visualising-top-features-in-linear-svm-with-scikit-learn-and-matplotlib-3454ab18a14d"""
     coef = classifier.coef_[dim].ravel()
     top_positive_coefficients = list(reversed(np.argsort(coef)[-top_features:]))
     top_negative_coefficients = np.argsort(coef)[:top_features]
@@ -153,7 +154,7 @@ def plot_coefficients(classifier, dim, feature_names, label_encoder, top_feature
     colors = ['blue']
     plt.bar(np.arange(top_features), coef[top_coefficients], color=colors)
     feature_names = np.array(feature_names)
-    plt.xticks(np.arange(1, 1 + top_features), feature_names[top_coefficients], rotation=60, ha='right')
+    plt.xticks(np.arange(0, top_features), feature_names[top_coefficients], rotation=60, ha='right')
     print(f'{list(zip(feature_names[top_coefficients], coef[top_coefficients]))}')
     plt.tight_layout()
     plt.savefig(f'coefficients-{label_encoder.inverse_transform([dim])[0]}-dim-{dim}.png')

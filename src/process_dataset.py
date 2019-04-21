@@ -15,7 +15,7 @@ def join_text(row, post_field_used=PostFieldsUsed.both_title_and_body):
     elif post_field_used is PostFieldsUsed.only_body:
         return row['selftext']
     else:
-        return str(row['title']) + ' ' + row['selftext']
+        return str(row['title']) + ' ' + str(row['selftext'])
 
 def get_reddit_dataset(dataset_name='data/rspct.tsv', size=DATASET_SIZE,
                        post_field_used=PostFieldsUsed.both_title_and_body):
