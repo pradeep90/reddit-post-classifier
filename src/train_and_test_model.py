@@ -3,6 +3,8 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
 from process_dataset import get_vectorized_training_and_test_set
 from parameters import *
+from joblib import dump, load
+from utils import get_model_save_name
 
 def get_model(name='NBC'):
     model = None
@@ -30,6 +32,8 @@ def precision_at_k(y_true, y_pred, k=5):
 
 def train_and_test_model(model, X_train, y_train, X_val, y_val, X_test, y_test):
     model.fit(X_train, y_train)
+    if SHOULD_SAVE_MODEL:
+        dump(model, get_model_save_name(basename=TRADITIONAL_MODEL_NAME, suffix='joblib'))
 
     y_train_pred_proba = model.predict_proba(X_train)
     y_train_pred = np.argmax(y_train_pred_proba, axis=1)
@@ -56,9 +60,12 @@ def train_and_test_model(model, X_train, y_train, X_val, y_val, X_test, y_test):
 def main():
     for post_field_used in POST_FIELDS_USED_LIST:
         model = get_model(TRADITIONAL_MODEL_NAME)
-        (X_train, y_train, X_test, y_test) = get_vectorized_training_and_test_set(post_field_used=post_field_used)
+        (X_train, y_train, X_test, y_test) = get_vectorized_training_and_test_set(
+            dataset_name=f'{DATASET_DIR}/{DATA_FILE_NAME}',
+            post_field_used=post_field_used)
         print('model', model, flush=True)
         print(f'DATASET_SIZE: {DATASET_SIZE}\nexperiment_name: {experiment_name}\npost_field_used: {post_field_used}', flush=True)
+        print(f'MAX_NUM_WORDS: {MAX_NUM_WORDS}\nDATA_FILE_NAME: {DATA_FILE_NAME}', flush=True)
 
         for training_fraction in TRAINING_FRACTION_LIST:
             validation_set_size = int(VALIDATION_FRACTION * X_train.shape[0])
