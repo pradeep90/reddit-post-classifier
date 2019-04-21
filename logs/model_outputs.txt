@@ -2678,3 +2678,38 @@ precision@3 = 0.6343
 precision@5 = 0.696
 
 End: Sat Apr 20 19:11:13 EDT 2019
+
+Start: Sat Apr 20 19:33:07 EDT 2019
+NB_ALPHA: 0.1
+End: Sat Apr 20 19:33:52 EDT 2019
+
+
+Start: Sat Apr 20 19:35:53 EDT 2019
+NB_ALPHA: 0.1
+model MultinomialNB(alpha=0.1, class_prior=None, fit_prior=True)
+DATASET_SIZE: 1000000
+experiment_name: 1M-rows-10-epochs
+post_field_used: PostFieldsUsed.both_title_and_body
+MAX_NUM_WORDS: 100000
+DATA_FILE_NAME: rspct_preprocessed_stemmed.tsv
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180000
+training_fraction: 1.0
+training_set_size: 720000
+
+
+Training set:
+precision@1 = 0.9392916666666666
+precision@3 = 0.9847166666666667
+precision@5 = 0.9917208333333334
+Validation set:
+precision@1 = 0.7300388888888889
+precision@3 = 0.8543111111111111
+precision@5 = 0.8892833333333333
+Test set:
+precision@1 = 0.72919
+precision@3 = 0.85506
+precision@5 = 0.89049
+
+End: Sat Apr 20 21:30:39 EDT 2019
+
