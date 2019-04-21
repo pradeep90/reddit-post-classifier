@@ -152,7 +152,7 @@ def plot_coefficients(classifier, dim, feature_names, label_encoder, top_feature
     plt.figure()
     # colors = ['red' if c < 0 else 'blue' for c in coef[top_coefficients]]
     colors = ['blue']
-    plt.bar(np.arange(top_features), coef[top_coefficients], color=colors)
+    plt.bar(np.arange(top_features), (7 + coef[top_coefficients]), color=colors)
     feature_names = np.array(feature_names)
     plt.xticks(np.arange(0, top_features), feature_names[top_coefficients], rotation=60, ha='right')
     print(f'{list(zip(feature_names[top_coefficients], coef[top_coefficients]))}')
