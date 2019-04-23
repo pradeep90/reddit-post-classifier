@@ -2713,6 +2713,70 @@ precision@5 = 0.89049
 
 End: Sat Apr 20 21:30:39 EDT 2019
 
+
+Start: Sun Apr 21 02:30:04 EDT 2019
+Indexing word vectors.
+Found 1137926 unique tokens.
+Shape of data tensor: (1000000, 1000)
+Shape of label tensor: (1000000, 1013)
+Preparing embedding matrix.
+Found 400000 word vectors.
+Training model.
+Train on 800000 samples, validate on 200000 samples
+Epoch 1/10
+
+800000/800000 [==============================] - 15312s 19ms/step - loss: 6.0691 - acc: 0.0543 - top_k_categorical_accuracy: 0.1328 - val_loss: 4.5122 - val_acc: 0.2377 - val_top_k_categorical_accuracy: 0.4431
+
+Epoch 00001: val_acc improved from -inf to 0.23767, saving model to models/CNN-multi-channel-10-epochs-1000000-rows-2019-04-21-05:05:19-468366..h5
+Epoch 2/10
+
+800000/800000 [==============================] - 15437s 19ms/step - loss: 3.7547 - acc: 0.2916 - top_k_categorical_accuracy: 0.5016 - val_loss: 2.8049 - val_acc: 0.4850 - val_top_k_categorical_accuracy: 0.6855
+
+Epoch 00002: val_acc improved from 0.23767 to 0.48499, saving model to models/CNN-multi-channel-10-epochs-1000000-rows-2019-04-21-05:05:19-468366..h5
+Epoch 3/10
+
+800000/800000 [==============================] - 16174s 20ms/step - loss: 2.6728 - acc: 0.4724 - top_k_categorical_accuracy: 0.6792 - val_loss: 2.1374 - val_acc: 0.5884 - val_top_k_categorical_accuracy: 0.7678
+
+Epoch 00003: val_acc improved from 0.48499 to 0.58843, saving model to models/CNN-multi-channel-10-epochs-1000000-rows-2019-04-21-05:05:19-468366..h5
+Epoch 4/10
+
+800000/800000 [==============================] - 15697s 20ms/step - loss: 2.1638 - acc: 0.5648 - top_k_categorical_accuracy: 0.7549 - val_loss: 1.8031 - val_acc: 0.6433 - val_top_k_categorical_accuracy: 0.8086
+
+Epoch 00004: val_acc improved from 0.58843 to 0.64330, saving model to models/CNN-multi-channel-10-epochs-1000000-rows-2019-04-21-05:05:19-468366..h5
+Epoch 5/10
+
+800000/800000 [==============================] - 15612s 20ms/step - loss: 1.8749 - acc: 0.6178 - top_k_categorical_accuracy: 0.7950 - val_loss: 1.6071 - val_acc: 0.6758 - val_top_k_categorical_accuracy: 0.8325
+
+Epoch 00005: val_acc improved from 0.64330 to 0.67585, saving model to models/CNN-multi-channel-10-epochs-1000000-rows-2019-04-21-05:05:19-468366..h5
+Epoch 6/10
+
+800000/800000 [==============================] - 15700s 20ms/step - loss: 1.6879 - acc: 0.6517 - top_k_categorical_accuracy: 0.8202 - val_loss: 1.4794 - val_acc: 0.6977 - val_top_k_categorical_accuracy: 0.8478
+
+Epoch 00006: val_acc improved from 0.67585 to 0.69773, saving model to models/CNN-multi-channel-10-epochs-1000000-rows-2019-04-21-05:05:19-468366..h5
+Epoch 7/10
+
+800000/800000 [==============================] - 15672s 20ms/step - loss: 1.5590 - acc: 0.6752 - top_k_categorical_accuracy: 0.8366 - val_loss: 1.3928 - val_acc: 0.7124 - val_top_k_categorical_accuracy: 0.8584
+
+Epoch 00007: val_acc improved from 0.69773 to 0.71236, saving model to models/CNN-multi-channel-10-epochs-1000000-rows-2019-04-21-05:05:19-468366..h5
+Epoch 8/10
+
+800000/800000 [==============================] - 16643s 21ms/step - loss: 1.4597 - acc: 0.6933 - top_k_categorical_accuracy: 0.8498 - val_loss: 1.3281 - val_acc: 0.7237 - val_top_k_categorical_accuracy: 0.8662
+
+Epoch 00008: val_acc improved from 0.71236 to 0.72367, saving model to models/CNN-multi-channel-10-epochs-1000000-rows-2019-04-21-05:05:19-468366..h5
+Epoch 9/10
+
+800000/800000 [==============================] - 15820s 20ms/step - loss: 1.3845 - acc: 0.7069 - top_k_categorical_accuracy: 0.8594 - val_loss: 1.2784 - val_acc: 0.7326 - val_top_k_categorical_accuracy: 0.8721
+
+Epoch 00009: val_acc improved from 0.72367 to 0.73255, saving model to models/CNN-multi-channel-10-epochs-1000000-rows-2019-04-21-05:05:19-468366..h5
+Epoch 10/10
+
+800000/800000 [==============================] - 15747s 20ms/step - loss: 1.3221 - acc: 0.7184 - top_k_categorical_accuracy: 0.8672 - val_loss: 1.2391 - val_acc: 0.7391 - val_top_k_categorical_accuracy: 0.8770
+
+Epoch 00010: val_acc improved from 0.73255 to 0.73906, saving model to models/CNN-multi-channel-10-epochs-1000000-rows-2019-04-21-05:05:19-468366..h5
+End: Tue Apr 23 01:24:24 EDT 2019
+
+
+
 Start: Sun Apr 21 02:22:05 EDT 2019
 LR_C: 100.0
 model LogisticRegression(C=100.0, class_weight=None, dual=False, fit_intercept=True,
@@ -2819,7 +2883,21 @@ precision@1 = 0.6961
 precision@3 = 0.82773
 precision@5 = 0.86394
 
+
 VALIDATION_FRACTION: 0.2
 validation_set_size: 180000
 training_fraction: 0.2
 training_set_size: 144000
+
+Training set:
+precision@1 = 1.0
+precision@3 = 1.0
+precision@5 = 1.0
+Validation set:
+precision@1 = 0.7116111111111111
+precision@3 = 0.8364833333333334
+precision@5 = 0.8707055555555555
+Test set:
+precision@1 = 0.7086
+precision@3 = 0.83635
+precision@5 = 0.87097
