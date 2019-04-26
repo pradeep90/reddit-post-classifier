@@ -1,6 +1,7 @@
 import numpy as np
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import confusion_matrix
 from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
+from sklearn.naive_bayes import MultinomialNB
 from process_dataset import get_vectorized_training_and_test_set
 from parameters import *
 from joblib import dump, load
@@ -30,6 +31,16 @@ def precision_at_k(y_true, y_pred, k=5):
     arr = [y in s for y, s in zip(y_true, y_pred)]
     return np.mean(arr)
 
+def save_confusion_matrix(y_true, y_pred, prefix='confusion-matrix'):
+    y_true = np.array(y_true)
+    y_pred = np.array(y_pred)
+    y_pred = np.argsort(y_pred, axis=1)
+    y_pred = y_pred[:, -1]
+    cm = confusion_matrix(y_true, y_pred)
+    file_name = get_model_save_name(basename=f'{TRADITIONAL_MODEL_NAME}-confusion-matrix', suffix='txt')
+    np.savetxt(file_name, cm)
+    print(f'Saved confusion matrix to {file_name}', flush=True)
+
 def train_and_test_model(model, X_train, y_train, X_val, y_val, X_test, y_test):
     model.fit(X_train, y_train)
     if SHOULD_SAVE_MODEL:
@@ -55,6 +66,9 @@ def train_and_test_model(model, X_train, y_train, X_val, y_val, X_test, y_test):
         precision_at_k(y_test, y_pred_proba, 1),
         precision_at_k(y_test, y_pred_proba, 3),
         precision_at_k(y_test, y_pred_proba, 5)), flush=True)
+
+    save_confusion_matrix(y_test, y_pred_proba)
+
     return model
 
 def main():

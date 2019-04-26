@@ -35,8 +35,10 @@ def get_reddit_dataset(dataset_name='data/rspct.tsv', size=DATASET_SIZE,
 def label_encode(y_train, y_test):
     le = LabelEncoder()
     le.fit(pd.concat([y_train, y_test]))
-    if SHOULD_SAVE_MODEL:
-        dump(le, get_model_save_name(basename='label-encoder', suffix='joblib'))
+    if SHOULD_SAVE_ENCODER:
+        file_name = get_model_save_name(basename='label-encoder', suffix='joblib')
+        dump(le, file_name)
+        print(f'Saved label encoder to {file_name}', flush=True)
     return (le.transform(y_train), le.transform(y_test))
 
 def get_label_encoded_training_test_sets(df, input_col='text', output_col='subreddit'):
@@ -82,7 +84,7 @@ def get_vectorized_training_and_test_set(dataset_name='data/rspct.tsv',
                                 )
 
     X_train = tf_idf_vectorizer.fit_transform(X_train)
-    if SHOULD_SAVE_MODEL:
+    if SHOULD_SAVE_TOKENIZER:
         dump(tf_idf_vectorizer, get_model_save_name(basename='tfidf-vectorizer', suffix='joblib'))
     X_test = tf_idf_vectorizer.transform(X_test)
 

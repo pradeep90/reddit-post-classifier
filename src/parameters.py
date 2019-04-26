@@ -8,8 +8,9 @@ IS_DEBUGGING_ON = False
 # experiment_name = '10k-rows-300-dim'
 # experiment_name = '50k-rows-10-epochs'
 # experiment_name = '100k-rows-10-epochs'
-experiment_name = '1M-rows-10-epochs'
+# experiment_name = '1M-rows-10-epochs'
 # experiment_name = '1M-rows-2-epochs-300-dim'
+experiment_name = '1M-rows-10-epochs-300-dim'
 # CNN_mode = 'train-from-scratch'
 CNN_mode = 'train-from-scratch-multi-channel'
 
@@ -52,12 +53,16 @@ POST_FIELDS_USED_LIST = [PostFieldsUsed.both_title_and_body]
 #                          PostFieldsUsed.only_body,
 #                          PostFieldsUsed.both_title_and_body]
 
-TRADITIONAL_MODEL_NAME = 'LR'
-# TRADITIONAL_MODEL_NAME = 'NBC'
+# TRADITIONAL_MODEL_NAME = 'LR'
+TRADITIONAL_MODEL_NAME = 'NBC'
 # TRADITIONAL_MODEL_NAME = 'LR_CV'
 
 # SHOULD_SAVE_MODEL = True
 SHOULD_SAVE_MODEL = False
+
+SHOULD_SAVE_ENCODER = True
+
+SHOULD_SAVE_TOKENIZER = False
 
 # HAVE_FEW_FEATURES = True
 HAVE_FEW_FEATURES = False
@@ -86,6 +91,10 @@ elif experiment_name == '1M-rows-10-epochs':
     DATASET_SIZE = 1000000
 elif experiment_name == '1M-rows-2-epochs-300-dim':
     NUM_EPOCHS = 2
+    DATASET_SIZE = 1000000
+    EMBEDDING_DIM = 300
+elif experiment_name == '1M-rows-10-epochs-300-dim':
+    NUM_EPOCHS = 10
     DATASET_SIZE = 1000000
     EMBEDDING_DIM = 300
 elif experiment_name == '10k-rows':
