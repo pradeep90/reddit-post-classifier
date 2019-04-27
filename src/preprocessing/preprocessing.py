@@ -19,8 +19,8 @@ import textstat
 
 DEBUG	= True
 TIME_DEBUG = True
-INCLUDE_SENTIMENT_FEATURE = True
-INCLUDE_READABILITY_FEATURE = True
+INCLUDE_SENTIMENT_FEATURE = False
+INCLUDE_READABILITY_FEATURE = False
 
 PATH_TO_DATA 	= '../../data/'
 DATA_FILE_NAME 	= 'rspct.tsv' 
@@ -76,7 +76,7 @@ def remove_tags_puncts_whitespaces(data):
 	if DEBUG:
 		print('Removing punctuations, tags and whitespaces')
 	for col in data.columns:
-		if col not in ['id', 'subreddit', 'sentiment_val']:
+		if col not in ['id', 'subreddit', 'sentiment_val', 'readability_score']:
 			data[col] = data[col].apply(remove_tags_puncts_whites)
 	return data
 
@@ -96,7 +96,7 @@ def stem_data(data):
 	if DEBUG:
 		print ('Stemming the data')
 	for col in data.columns:
-		if col not in ['id', 'subreddit', 'sentiment_val']:
+		if col not in ['id', 'subreddit', 'sentiment_val', 'readability_score']:
 			data[col] = data[col].apply(stem_text)
 	return data	
 
@@ -113,7 +113,7 @@ def lemmatize_data(data):
 	if DEBUG:
 		print ('Lemmatizing the data')
 	for col in data.columns:
-		if col not in ['id', 'subreddit', 'sentiment_val']:
+		if col not in ['id', 'subreddit', 'sentiment_val', 'readability_score']:
 			data[col] = data[col].apply(lemmatize_text)
 	return data		
 
@@ -141,7 +141,7 @@ def text_readability_score(text):
 def include_readability_score(data):
 	data['title_selftext'] = data['title'] + ' ' + data['selftext']
 	data['readability_score'] = data['title_selftext'].apply(text_readability_score)
-	data = data.drop(['readability_score'], 1)
+	data = data.drop(['title_selftext'], 1)
 	return data
 
 
@@ -171,19 +171,21 @@ def preprocess(data):
 	# if TIME_DEBUG:
 	# 	print('That took time: {}'.format(t1-t0))
 
+	"""
 	t0 = time.time()
 	data = remove_tags_puncts_whitespaces(data)
 	t1 = time.time()
 	if TIME_DEBUG:
 		print('Removing punctuations took time: {}'.format(t1-t0))
+	"""
 
-	# """
+	"""
 	t0 = time.time()
 	data = stem_data(data)
 	t1 = time.time()
 	if DEBUG:
 		print('Stemming took time: {}'.format(t1-t0))
-	# """
+	"""
 
 	"""
 	t0 = time.time()
@@ -207,7 +209,7 @@ def main():
 	
 	preprocessed_df = preprocess(df)
 
-	preprocessed_df.to_csv(OUTPUT_FILE_NAME, sep='\t', index=False)
+	# preprocessed_df.to_csv(OUTPUT_FILE_NAME, sep='\t', index=False)
 
 	t1 = time.time()
 	if TIME_DEBUG:
