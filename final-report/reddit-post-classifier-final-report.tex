@@ -304,7 +304,20 @@ TODO
 TODO: add matrix and explain it
 
 \subsection{Toggle Title and Body}
-TODO: add comparison table
+
+TODO: explain the table
+precision at 1 for cnn cuz not able to learn the exact label
+precision at 5 same for all implies some limit of the dataset which needs further experientaiotn
+
+\begin{table}[H]
+\begin{tabular}{|l|l|l|l|}
+\hline
+    & Precision@1 & Precision@3 & Precision@5 \\ \hline
+NBC & 0.74        & 0.86        & 0.89        \\ \hline
+LR  & 0.71        & 0.84        & 0.89       \\ \hline
+CNN & 0.56        & -           & 0.89        \\ \hline
+\end{tabular}
+\end{table}
 
 \subsection{Performance Using Features for Sentiment Analysis and Readability Level}
 
@@ -333,9 +346,29 @@ TODO: talk about this
 
 \section{Evaluation of Project Goals}
 
-As promised in our initial proposal, we measured the top-1, top-3, and top-5 precision for Naive Bayes, Logistic Regression, and Convolutional Neural Networks. We also presented the learning curves for all three, including the loss vs number of epochs for CNN.
+Our project goals consisted of:
+\begin{enumerate}
+    \item Preprocessing
+            
+            We preprocessed the data by converting it to lowercase, removing encoded HTML and other tags, removing punctuations and stemming the words.
+    \item Exploratory Data Analysis 
+            
+            Exploratory Data Analysis was done by exploring the sample distribution length for the title and body of the posts and by plotting a TSNE plot to see if similar subreddits are clustered together.
+    \item Implementing algorithms
+            
+            We implemented two traditional learning algorithms (Naive Bayes Classifier and Logistic Regression) and a deep learning model (Convolutional Neural Network). We also tuned the hyper parameters of these algorithms to get the best possible performance on our dataset.
+    \item Toggling post's title and body
+            
+            To understand the impact of the title on classification, we measured the performance by training and testing on just the titles of the posts, just the bodies of the posts, and then with both title and body.
+    \item Experiment with adding new features
+            
+            In order to see if we can extract even more information from the data, we added features for the sentiment value and readability score of every post in the dataset. 
+            
+\end{enumerate}
 
-Further, we experimented with the title and body of the post and measured the precision for three different cases. Also, we added features for sentiment rating and readability level to measure the impact on the precision.
+In addition to the above, we also computed the confusion matrix and carried out qualitative analysis by computing the feature importance for our models.
+
+We, therefore, have achieved our goals that we set in the project proposal.
 
 \section{Conclusions}
 

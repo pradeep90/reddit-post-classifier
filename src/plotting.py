@@ -4,37 +4,37 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 PLOT_NBC = False
-PLOT_LR = True
-PLOT_CNN = False
+PLOT_LR = False
+PLOT_CNN = True
 
 # Learing curve for NBC
 if PLOT_NBC:
 	training_fracs = [0.025, 0.05, 0.075, 0.1, 0.15, 0.2, 1.0]
-	training_precision_at_5 = [1, 0.9999166666666667, 0.9998333333333334, 0.9995833333333334, 0.9993981481481482, 0.99925, 0.9919013888888889]
-	testing_precision_at_5 = [0.58738, 0.72416, 0.77479, 0.80193, 0.83226, 0.84762, 0.89345]
+	training_precision_at_5 = [1, 1, 1, 1, 1, 1]
+	testing_precision_at_5 = [0.77, 0.82, 0.84, 0.85, 0.86, 0.85]
 
 	plot_name = 'learning_curve_nbc_{}.png'.format(str(datetime.datetime.now()))
 	fig, ax = plt.subplots()
 	line1, = ax.plot(training_fracs, training_precision_at_5, label='train')
 	line2, = ax.plot(training_fracs, testing_precision_at_5, label='test')
 	ax.legend()
-	title='Training and Test Accuracies for v.s. Training Fraction'
+	title='Training and Test Accuracies v.s. Training Fraction'
 	plt.xlabel('training_fracs')
 	plt.ylabel('Precision@5')
 	plt.title(title)
 	plt.savefig(plot_name)
 
 if PLOT_LR:
-	training_fracs = [0.025, 0.05, 0.075, 0.1, 0.15]
-	training_precision_at_5 = [1, 1, 1, 1, 1]
-	testing_precision_at_5 = [0.77, 0.82, 0.84, 0.85, 0.86]
+	training_fracs = [0.025, 0.05, 0.075, 0.1, 0.15, 0.2]
+	training_precision_at_5 = [1, 1, 1, 1, 1, 1]
+	testing_precision_at_5 = [0.77, 0.82, 0.84, 0.85, 0.86, 0.87]
 
 	plot_name = 'learning_curve_lr_{}.png'.format(str(datetime.datetime.now()))
 	fig, ax = plt.subplots()
 	line1, = ax.plot(training_fracs, training_precision_at_5, label='train')
 	line2, = ax.plot(training_fracs, testing_precision_at_5, label='test')
 	ax.legend()
-	title='Training and Test Accuracies for v.s. Training Fraction'
+	title='Training and Test Accuracies v.s. Training Fraction'
 	plt.xlabel('training_fracs')
 	plt.ylabel('Precision@5')
 	plt.title(title)
@@ -213,11 +213,11 @@ if PLOT_CNN:
 	#print(losses)
 	#print(validation_losses)
 
+	"""
 	xs = xs[:15]
 	losses = losses[:15]
 	validation_losses = validation_losses[:15]
 
-	"""
 	plot_name = 'learning_curve_cnn_{}.png'.format(str(datetime.datetime.now()))
 	fig, ax = plt.subplots()
 	line1, = ax.plot(xs, losses, label='Training Loss')
@@ -235,33 +235,36 @@ if PLOT_CNN:
 	plt.savefig(plot_name)
 	"""
 
-	losses = [7.2658, 6.9714, 6.8302, 6.6318, 6.3564, 6.057, 5.7686, 5.4802, 5.1918, 4.9033999999999995, 4.614999999999999, 4.326599999999999, 4.038199999999999, 3.7919, 3.7497999999999987, 3.6284, 3.4893, 3.3693, 3.2688, 3.1787]
-	accuracies = [0.0049, 0.0108, 0.0325, 0.0706, 0.1155, 0.1618, 0.2059, 0.25, 0.29410000000000003, 0.33820000000000006, 0.3823000000000001, 0.4264000000000001, 0.47050000000000014, 0.5113, 0.5146000000000002, 0.5353, 0.5563, 0.574, 0.5888, 0.6024]
-	assert(len(losses) == len(accuracies))
-	batch_nums = list(range(1,len(losses)+1))
+	validation_losses = [3.78,2.26,1.77,1.52,1.37,1.29,1.22,1.18,1.14,1.12]
+	accuracies = [0.58,0.76,0.82,0.85,0.86,0.87,0.88,0.89,0.89,0.89]
+	assert(len(validation_losses) == len(accuracies))
+	epochs = list(range(1,len(validation_losses)+1))
 
 	plot_name = 'learning_curve_cnn_{}.png'.format(str(datetime.datetime.now()))
-	
+
 	fig, ax1 = plt.subplots()
 	
 	color = 'tab:red'
+	ax1.set_xlabel('epoch')
 	ax1.set_ylabel('loss', color=color)
-	ax1.plot(batch_nums, losses, color=color)
+	ax1.plot(epochs, validation_losses, color=color)
 	ax1.tick_params(axis='y', labelcolor=color)
 
 	ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 
 	color = 'tab:blue'
 	ax2.set_ylabel('accuracy', color=color)  # we already handled the x-label with ax1
-	ax2.plot(batch_nums, accuracies, color=color)
+	ax2.plot(epochs, accuracies, color=color)
 	ax2.tick_params(axis='y', labelcolor=color)
 
+	"""
 	plt.tick_params(
 			axis='x',          # changes apply to the x-axis
 			which='both',      # both major and minor ticks are affected
 			bottom=False,      # ticks along the bottom edge are off
 			top=False,         # ticks along the top edge are off
 			labelbottom=False) # labels along the bottom edge are off
+	"""
 	
 	fig.tight_layout()  # otherwise the right y-label is slightly clipped
 	plt.savefig(plot_name)
