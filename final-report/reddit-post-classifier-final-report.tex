@@ -199,13 +199,13 @@ Text classification with few classes, such as in sentiment analysis, has been we
 
 We aim to study this problem by using a dataset that has a large number of classes but also a large number of examples per class. To this end, we used the Reddit Self-Post Classification Task (RSPCT) dataset and trained three models and evaluated their performance.
 
-We think this is a useful problem to solve because it has not been adequately studied, to the best of our knowledge, and because this could pave the way to future work on such many-class datasets. 
+We think this is a useful problem to solve because it has not been adequately studied, to the best of our knowledge, and because this could pave the way to future work on such many-class datasets.
 
 \section{Dataset}
 
 Reddit is a popular social link aggregation, web content rating, and discussion website. Reddit's users submit posts, which are then voted up or down by other members. This allows the highest rated posts to gain the most attention. Reddit is organized into "subreddits", which are sub-forums on Reddit dedicated to a specific topic, for example r/geography, r/gameofthrones, r/MachineLearning.
 
-There are two main types of posts a user can submit on Reddit: a simple URL link and a self-post. A self-post consists of a topic and a body of text and is generally much longer in length, thereby, providing more information to Redditors. Moreover, most of the self-posts talk closely about the subreddit that they were posted in, which makes for a good classification task. 
+There are two main types of posts a user can submit on Reddit: a simple URL link and a self-post. A self-post consists of a topic and a body of text and is generally much longer in length, thereby, providing more information to Redditors. Moreover, most of the self-posts talk closely about the subreddit that they were posted in, which makes for a good classification task.
 
 We obtained the Reddit Self-Post Classification Task (RSPCT) dataset from Kaggle \cite{kaggle:dataset}. It is a text corpus containing self-posts (i.e., text posts) from Reddit. RSPCT was collected to help spur research on models that could tackle a large number of classes by ensuring a large population of examples for each class. The data consists of 1.013M self-posts, posted from 1013 subreddits (1000 examples per class). For each post, its title, body and the subreddit that it belongs to are provided.
 
@@ -217,7 +217,7 @@ As mentioned in the previous section, the RSPCT dataset contains real self-posts
 
 Because this is a text classification problem and most of our models used the bag-of-words approach, we first lowercase all the text in the subreddit, title and body of each post. We noticed that many of the posts contained special HTML encoded text and tags like \&gt, \&amp, \&lt, <lb>, <tab> etc. We used regular expression matching to replace these tags with a blank space. We also removed punctuation characters like !, ", \#, \$, \%, \&, (, [, *, + etc. such that we were only left with words at the end of this step.
 
-Finally, we used Python's NLTK's PorterScanner to replace all words with their stem words. This resulted in words like "extremely" and "extreme" to be replaced with "extrem". \textit{\textbf{Figure \_ shows the whole process for preprocessing one self-post}}
+Finally, we used Python's NLTK's PorterScanner to replace all words with their stem words. This resulted in words like "extremely" and "extreme" to be replaced with "extrem". \textit{\textbf{Figure \_ shows the whole process for preprocessing one self-post}} (TODO)
 
 \section{Exploratory Data Analysis}
 
@@ -237,7 +237,7 @@ Finally, we used Python's NLTK's PorterScanner to replace all words with their s
 \caption{Sample Distribution for Length of Post's Body (in characters)}
 \end{figure}
 
-\subsection{TSNE} 
+\subsection{TSNE}
 
 \textit{\textbf{TODO: What to include for this? To mention that we did TSNE or not? Or to just give a reference to this?}}
 
@@ -249,13 +249,16 @@ Finally, we used Python's NLTK's PorterScanner to replace all words with their s
 
 \section{Algorithms Implemented}
 
+\subsection{Data Preparation}
+
+For the two traditional algorithms, we used a label encoder to transform each output label (subreddit name) into a number from 0 to 1012. Then, we used a TF-IDF vectorizer to get 30,000 top words, while excluding stop words and choosing only words that appeared in at least 5 documents and appeared in a maximum of 50\% of the documents. For all three algorithms, we combined the title and body of the posts into one field.
+
 \subsection{Naive Bayes Classifier (NBC)}
 
-TODO: explain these sections/design decisions
+The first algorithm we looked at was the Naive Bayes Classifier because of its long use in text classification tasks (TODO). Specifically, we used \verb+MultinomialNB+ from \verb+sklearn+ with the hyperparameter \verb+alpha+.
 
-\subsubsection{Hyperparameter Tuning: alpha}
+This model was the fastest to train among the three and gave us a quick baseline with which to compare the others. We also extended the maximum number of feature words to be 100,000 since it did not impact the training time too much. The training curve can be seen in figure TODO. We tried the following values of \verb+alpha+: 0.1, 0.5, 0.9, 1.0, and found the best validation accuracy at 0.1.
 
-\subsubsection{Performance}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{plots/learning_curve_nbc.png}
@@ -264,12 +267,10 @@ TODO: explain these sections/design decisions
 
 \subsection{Logistic Regression (LR)}
 
-TODO: explain these sections/design decisions
+The next traditional algorithm we wanted to consider was Logistic Regression. We used \verb+LogisticRegression+ from \verb+sklearn.linear_model+ with the hyperparameter C.
 
-\subsubsection{Hyperparameter Tuning: C}
+The number of feature words used in this bag-of-words approach affected the training time a lot. Similarly, when hyperparameter tuning, we found that while values of C like 0.0001 and 0.01 led to very short training time, they also led to poor validation accuracy. On the other hand, C = 100 (i.e., not penalizing large weight values) led to better validation accuracy but at the cost of orders of magnitude longer training time. The training curve can be seen in figure TODO (TODO: need to add training fraction 0.20).
 
-
-\subsubsection{Performance}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{plots/learning_curve_lr.png}
@@ -277,21 +278,20 @@ TODO: explain these sections/design decisions
 \end{figure}
 
 \subsection{Convolutional Neural Network (CNN)}
-TODO: explain these sections/design decisions
 
-\subsubsection{Hyperparameter Tuning: }
+Finally, we wanted to test a deep learning model on this dataset. We chose to use a Convolutional Neural Network because of its better average accuracy across different tasks and shorter training time then Recurrent Neural Networks.
+
+To embed the words in the post, we used the GloVe (Global Vectors for Word Representation) embedding \cite{pennington2014glove}. We tried a version with 100 embedding dimensions for each word and another version with 300 embedding dimensions and found the later to give quite a boost in overall accuracy.
+
+We considered two architectures for the CNN, one with three successive layers of filters of size 5 and one with a multi-channel model of filters of sizes 2, 3, and 5. Upon testing, we found that the latter gave much higher accuracy even after a few epochs whereas the former seemed to overfit after a few epochs (TODO: maybe show the training curve for the old architecture). So, our multi-channel approach would consider two words at a time, three words at a time, and five words at a time. The later layers use max-pooling and softmax to predict one class label out of 1013 labels. Finally, we use dropout with probability 0.3. The optimizer we use is Adam because of its adaptive learning rate and the loss is categorical cross-entropy.
+
+We trained the CNN for a maximum of 10 epochs over several days and obtained the following learning curve (figure TODO).
 
 \subsubsection{Performance}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{plots/multi-channel-CNN-architecture.png}
 \caption{CNN Architecture}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\linewidth]{plots/learning_curve_cnn.png}
-\caption{Learning Curve for Logistic Regression}
 \end{figure}
 
 \subsection{Performance Comparison}
@@ -339,7 +339,7 @@ The key metric for the models will be the Precision-at-K metric \cite{krizhevsky
 In addition, for the deep learning model, we will plot the loss and accuracy curves vs number of epochs. For the traditional models, we will plot the learning curve vs training set size.
 
 What we promised:
-1. Preprocessing through TSNE and sample 
+1. Preprocessing through TSNE and sample
 What we did not promise but delivered:
 
 \section{Conclusions}
