@@ -264,7 +264,7 @@ TODO: explain these sections/design decisions
 
 \subsection{Logistic Regression (LR)}
 
-TODO: add new point in graph and explain these sections/design decisions
+TODO: explain these sections/design decisions
 
 \subsubsection{Hyperparameter Tuning: C}
 
@@ -277,15 +277,21 @@ TODO: add new point in graph and explain these sections/design decisions
 \end{figure}
 
 \subsection{Convolutional Neural Network (CNN)}
-TODO: add graph and explain these sections/design decisions
+TODO: explain these sections/design decisions
 
-\subsubsection{Hyperparameter Tuning: num\_epochs}
+\subsubsection{Hyperparameter Tuning: }
 
 \subsubsection{Performance}
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{plots/multi-channel-CNN-architecture.png}
 \caption{CNN Architecture}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{plots/learning_curve_cnn.png}
+\caption{Learning Curve for Logistic Regression}
 \end{figure}
 
 \subsection{Performance Comparison}
@@ -325,6 +331,16 @@ TODO: talk about this
 
 \section{Evaluation of Project Goals}
 TODO: take part from proposal
+
+The key metric for the models will be the Precision-at-K metric \cite{krizhevsky2012imagenet}, since this is a problem with a very large number of classes and we don't expect the correct label to be predicted as the top option. We will measure the precision on the top-1, top-3, and top-5 labels. As mentioned before, we will also experiment with adding a new feature for sentiment rating of the text to see if that improves performance. To understand the impact of the title on classification, we will measure performance by training and testing on just the titles of the posts, just the bodies of the posts, and then with both title and body.
+
+%% Finally, we will do a little qualitative evaluation by contrasting one or two posts for which our model confidently predicts the wrong category.
+
+In addition, for the deep learning model, we will plot the loss and accuracy curves vs number of epochs. For the traditional models, we will plot the learning curve vs training set size.
+
+What we promised:
+1. Preprocessing through TSNE and sample 
+What we did not promise but delivered:
 
 \section{Conclusions}
 TODO
