@@ -1,6 +1,6 @@
 # Source: https://medium.com/@datamonsters/text-preprocessing-in-python-steps-tools-and-examples-bf025f872908
 
-# TODO: stemming and lemmatization for apostraphied words e.g. isn't, don't not giving correct results
+# reading level of posts coming out as negative for most posts because of the way they are written
 
 import re 
 
@@ -12,14 +12,21 @@ import time
 import nltk
 nltk.download('wordnet') #TODO: should add this to the make file?
 
+# for sentiment analysis
+from textblob import TextBlob
+# for readability score
+import textstat
+
 DEBUG	= True
 TIME_DEBUG = True
+INCLUDE_SENTIMENT_FEATURE = True
+INCLUDE_READABILITY_FEATURE = True
 
 PATH_TO_DATA 	= '../../data/'
 DATA_FILE_NAME 	= 'rspct.tsv' 
 DATA 		= PATH_TO_DATA+DATA_FILE_NAME 
 
-OUTPUT_FILE_NAME	= 'rspct_preprocessed_lemmatized.tsv'
+OUTPUT_FILE_NAME	= 'rspct_preprocessed_sentiment_readability_stemmed.tsv'
 
 
 def lowercase(df):
@@ -59,9 +66,8 @@ def remove_tags_puncts_whites(text):
 	puncts_to_remove = """!"#$%&()*+,-./:;<=>?@[\]^_`{|}~"""
 	text = text.translate({ord(c): ' ' for c in puncts_to_remove})
 
-	#print('ret:', text.strip())
+	# print('ret:', text.strip())
 	return text.strip()
-
 
 def remove_tags_puncts_whitespaces(data):
 	"""
@@ -70,7 +76,7 @@ def remove_tags_puncts_whitespaces(data):
 	if DEBUG:
 		print('Removing punctuations, tags and whitespaces')
 	for col in data.columns:
-		if col not in ['id', 'subreddit']:
+		if col not in ['id', 'subreddit', 'sentiment_val']:
 			data[col] = data[col].apply(remove_tags_puncts_whites)
 	return data
 
@@ -90,7 +96,7 @@ def stem_data(data):
 	if DEBUG:
 		print ('Stemming the data')
 	for col in data.columns:
-		if col not in ['id', 'subreddit']:
+		if col not in ['id', 'subreddit', 'sentiment_val']:
 			data[col] = data[col].apply(stem_text)
 	return data	
 
@@ -107,9 +113,36 @@ def lemmatize_data(data):
 	if DEBUG:
 		print ('Lemmatizing the data')
 	for col in data.columns:
-		if col not in ['id', 'subreddit']:
+		if col not in ['id', 'subreddit', 'sentiment_val']:
 			data[col] = data[col].apply(lemmatize_text)
 	return data		
+
+
+def text_sentiment(text):
+    """
+    Given input text, returns a scalar estimate of the sentiment of that text.
+    Polarity is float which lies in the range of [-1,1] where 1 means positive statement and -1 means a negative statement.
+    """
+    # return indicoio.sentiment_hq(text)
+    return TextBlob(text).sentiment.polarity
+
+
+def include_sentiment(data):
+	data['title_selftext'] = data['title'] + ' ' + data['selftext']
+	data['sentiment_val'] = data['title_selftext'].apply(text_sentiment)
+	data = data.drop(['title_selftext'], 1)
+	return data
+
+
+def text_readability_score(text):
+	return textstat.flesch_reading_ease(text)
+
+
+def include_readability_score(data):
+	data['title_selftext'] = data['title'] + ' ' + data['selftext']
+	data['readability_score'] = data['title_selftext'].apply(text_readability_score)
+	data = data.drop(['readability_score'], 1)
+	return data
 
 
 def preprocess(data):
@@ -119,6 +152,18 @@ def preprocess(data):
 	t1 = time.time()
 	if TIME_DEBUG:
 		print('Lowercasing took time: {}'.format(t1-t0))
+
+	t0 = time.time()
+	if INCLUDE_SENTIMENT_FEATURE:
+		data = include_sentiment(data)
+		if TIME_DEBUG:
+			print('Sentiment calculations took time: {}'.format(time.time()-t0))
+
+	t0 = time.time()
+	if INCLUDE_READABILITY_FEATURE:
+		data = include_readability_score(data)
+		if TIME_DEBUG:
+			print('Readability score calculations took time: {}'.format(time.time()-t0))
 
 	# t0 = time.time()
 	# data = remove_nums(data)
@@ -131,20 +176,22 @@ def preprocess(data):
 	t1 = time.time()
 	if TIME_DEBUG:
 		print('Removing punctuations took time: {}'.format(t1-t0))
-		
-	"""
+
+	# """
 	t0 = time.time()
 	data = stem_data(data)
 	t1 = time.time()
 	if DEBUG:
 		print('Stemming took time: {}'.format(t1-t0))
-	"""
+	# """
 
+	"""
 	t0 = time.time()
 	data = lemmatize_data(data)
 	t1 = time.time()
 	if DEBUG:
 		print('Lemmatization took time: {}'.format(t1-t0))
+	"""
 
 	return data
 
@@ -156,7 +203,7 @@ def main():
 	t0 = time.time()
 
 	df = pd.read_csv(DATA, sep='\t')
-	#df = pd.read_csv(DATA, sep='\t', nrows=1000)
+	# df = pd.read_csv(DATA, sep='\t', nrows=1000)
 	
 	preprocessed_df = preprocess(df)
 
