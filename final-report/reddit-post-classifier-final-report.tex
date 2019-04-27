@@ -179,7 +179,7 @@ Mohammad Haseeb\\
 \maketitle
 \begin{abstract}
 
-In this project, we worked on the problem of large text classification, specifically the Reddit Self-Post Classification Task (RSPCT). RSPCT is a dataset with around 1000 classes (``subreddits'') with around 1000 examples per class, which is unique because most text classification datasets have sparse labels. We used two traditional machine learning algorithms and one deep learning algorithm to learn to predict the class (i.e., the subreddit) given the title and body of a post. We evaluated the performance of each model using the Precision-at-K metric. We conducted additional experiments like adding features for sentiment analysis and readability level of a post to see if that increases the performance of our models.
+We work on a large text classification problem, specifically the Reddit Self-Post Classification Task (RSPCT). RSPCT is a dataset with around 1000 classes (``subreddits'') with around 1000 examples per class, which is unique because most text classification datasets have sparse labels. We use two traditional machine learning algorithms and one deep learning algorithm to learn to predict the class (i.e., the subreddit) given the title and body of a post. We evaluate the performance of each model using the Precision-at-K metric and gain insight into the models and the dataset by using experiments on the title and body of the posts and by feature analysis.
 
 \end{abstract}
 
@@ -197,23 +197,23 @@ In this project, we worked on the problem of large text classification, specific
 
 Text classification with few classes, such as in sentiment analysis, has been well-studied \cite{sentiment-analysis} with state-of-the-art techniques like LSTM. However, those techniques do not always work as well in scenarios with many classes \cite{many-classes}. Another issue with training on many-class datasets is that they have a very large number of labels (such as WikiLSHTC-325K dataset \cite{partalas2015lshtc}, which has 325K labels) and are sparse - most labels in the above dataset have less than 100 examples \cite{jonesreddit}.
 
-We aim to study this problem by using a dataset that has a large number of classes but also a large number of examples per class. To this end, we used the Reddit Self-Post Classification Task (RSPCT) dataset and trained three models and evaluated their performance.
+We want to study this problem by using a dataset that has a large number of classes but also a large number of examples per class. To this end, we use the Reddit Self-Post Classification Task (RSPCT) dataset and trained three models and evaluated their performance.
 
 We think this is a useful problem to solve because it has not been adequately studied, to the best of our knowledge, and because this could pave the way to future work on such many-class datasets.
 
 \section{Dataset}
 
-Reddit is a popular social link aggregation, web content rating, and discussion website. Reddit's users submit posts, which are then voted up or down by other members. This allows the highest rated posts to gain the most attention. Reddit is organized into "subreddits", which are sub-forums on Reddit dedicated to a specific topic, for example r/geography, r/gameofthrones, r/MachineLearning.
+Reddit is a popular social link aggregation, web content rating, and discussion website. The content on Reddit is organized into "subreddits", which are sub-forums on Reddit dedicated to a specific topic, for example, r/geography, r/gameofthrones, r/MachineLearning.
 
 There are two main types of posts a user can submit on Reddit: a simple URL link and a self-post. A self-post consists of a topic and a body of text and is generally much longer in length, thereby, providing more information to Redditors. Moreover, most of the self-posts talk closely about the subreddit that they were posted in, which makes for a good classification task.
 
-We obtained the Reddit Self-Post Classification Task (RSPCT) dataset from Kaggle \cite{kaggle:dataset}. It is a text corpus containing self-posts (i.e., text posts) from Reddit. RSPCT was collected to help spur research on models that could tackle a large number of classes by ensuring a large population of examples for each class. The data consists of 1.013M self-posts, posted from 1013 subreddits (1000 examples per class). For each post, its title, body and the subreddit that it belongs to are provided.
+The Reddit Self-Post Classification Task (RSPCT) dataset \cite{kaggle:dataset} is a text corpus containing such self-posts (i.e., text posts) from Reddit. RSPCT was collected to help spur research on models that could tackle a large number of classes by ensuring a large population of examples for each class. The data consists of 1.013M self-posts, posted from 1013 subreddits (1000 examples per class). For each post, its title, body and the subreddit that it belongs to are provided.
 
 The aim is to allow for a situation comparable to that in the computer vision community, which was helped by the famous ILSRVC competition (ImageNet \cite{imagenet}) with 1000 classes and around 1400 examples per class. This potential is what made us find this project interesting.
 
 \section{Preprocessing}
 
-As mentioned in the previous section, the RSPCT dataset contains real self-posts from Reddit. This means that the text in these posts may not always conform to the grammar, spelling, vocabulary and other nuances of the English language. For this reason, we carried out a series of preprocessing steps.
+Since the RSPCT dataset contains real self-posts from Reddit, the text in these posts do not always conform to the grammar, spelling, vocabulary and other nuances of the English language. For this reason, we carried out a series of preprocessing steps.
 
 Because this is a text classification problem and most of our models used the bag-of-words approach, we first lowercase all the text in the subreddit, title and body of each post. We noticed that many of the posts contained special HTML encoded text and tags like \&gt, \&amp, \&lt, <lb>, <tab> etc. We used regular expression matching to replace these tags with a blank space. We also removed punctuation characters like !, ", \#, \$, \%, \&, (, [, *, + etc. such that we were only left with words at the end of this step.
 
@@ -223,7 +223,7 @@ Finally, we used Python's NLTK's PorterScanner to replace all words with their s
 
 \subsection{Distribution of Characters in Post and Title}
 
-\textit{\textbf{TODO: Explain this }}
+We first explore the dataset by looking at the histogram of the post titles (figure TODO). We find that most titles are shorter than 100 characters in length, with a median of 35 characters and 7 words.
 
 \begin{figure}[H]
 \centering
@@ -231,15 +231,17 @@ Finally, we used Python's NLTK's PorterScanner to replace all words with their s
 \caption{Sample Distribution for Length of Post's Title (in characters)}
 \end{figure}
 
+Similarly, the histogram for the post bodies (figure TODO) shows that most posts are shorter than 1000 characters in length, with a median of 500 characters and 105 words.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{plots/sample-length-distribution-selftext-1000000.png}
 \caption{Sample Distribution for Length of Post's Body (in characters)}
 \end{figure}
 
-\subsection{TSNE}
+The t-SNE plot for the subreddits (figure TODO) shows that the subreddits seem to be well-separated by topic. For example, we can see clusters of subreddits for gaming, cryptocurrency, and diseases.
 
-\textit{\textbf{TODO: What to include for this? To mention that we did TSNE or not? Or to just give a reference to this?}}
+%% \textit{\textbf{TODO: What to include for this? To mention that we did TSNE or not? Or to just give a reference to this?}}
 
 \begin{figure}[H]
 \centering
@@ -330,19 +332,13 @@ TODO: talk about this
 \end{figure}
 
 \section{Evaluation of Project Goals}
-TODO: take part from proposal
 
-The key metric for the models will be the Precision-at-K metric \cite{krizhevsky2012imagenet}, since this is a problem with a very large number of classes and we don't expect the correct label to be predicted as the top option. We will measure the precision on the top-1, top-3, and top-5 labels. As mentioned before, we will also experiment with adding a new feature for sentiment rating of the text to see if that improves performance. To understand the impact of the title on classification, we will measure performance by training and testing on just the titles of the posts, just the bodies of the posts, and then with both title and body.
+As promised in our initial proposal, we measured the top-1, top-3, and top-5 precision for Naive Bayes, Logistic Regression, and Convolutional Neural Networks. We also presented the learning curves for all three, including the loss vs number of epochs for CNN.
 
-%% Finally, we will do a little qualitative evaluation by contrasting one or two posts for which our model confidently predicts the wrong category.
-
-In addition, for the deep learning model, we will plot the loss and accuracy curves vs number of epochs. For the traditional models, we will plot the learning curve vs training set size.
-
-What we promised:
-1. Preprocessing through TSNE and sample
-What we did not promise but delivered:
+Further, we experimented with the title and body of the post and measured the precision for three different cases. Also, we added features for sentiment rating and readability level to measure the impact on the precision.
 
 \section{Conclusions}
+
 TODO
 
 \section{Team Member Contributions}
