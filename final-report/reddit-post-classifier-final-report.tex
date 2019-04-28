@@ -301,7 +301,32 @@ TODO
 
 \section{Further Experiments}
 \subsection{Confusion Matrix}
-TODO: add matrix and explain it
+
+To analyze which subreddits are frequently mispredicted, we look at the confusion matrix. As the 1000x1000 matrix for all the labels was hard to read, we have zoomed in on the subreddits that were most frequently confused.
+
+Figure TODO shows the top 40 most-confused subreddits, where we can see the characteristic diagonal of dark squares along with a few lighter squares denoting the mispredicted labels.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../plots/confusion-matrix-top-confused-labels-all.png}
+\caption{}
+\end{figure}
+
+Another version is in figure TODO where we can see that r/Adderall and r/ADHD are often confused, as are r/dropship and r/ecommerce.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../plots/confusion-matrix-top-confused-labels-0-to-20.png}
+\caption{TODO}
+\end{figure}
+
+Again, since the matrix is quite sparse it is hard to show them on the same plot, so we decided to visualize the true label along with its most-confused label in the same plot (figure TODO). We see that posts from r/hiking are attributed to r/backpacking, posts from r/cisco are attributed to r/networking, and, for some reason, posts from r/short are attributed to r/tall (probably because both talk about height).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../plots/confusion-matrix-true-label-vs-most-confused-label.png}
+\caption{}
+\end{figure}
 
 \subsection{Toggle Title and Body}
 
@@ -349,21 +374,21 @@ TODO: talk about this
 Our project goals consisted of:
 \begin{enumerate}
     \item Preprocessing
-            
+
             We preprocessed the data by converting it to lowercase, removing encoded HTML and other tags, removing punctuations and stemming the words.
-    \item Exploratory Data Analysis 
-            
+    \item Exploratory Data Analysis
+
             Exploratory Data Analysis was done by exploring the sample distribution length for the title and body of the posts and by plotting a TSNE plot to see if similar subreddits are clustered together.
     \item Implementing algorithms
-            
+
             We implemented two traditional learning algorithms (Naive Bayes Classifier and Logistic Regression) and a deep learning model (Convolutional Neural Network). We also tuned the hyper parameters of these algorithms to get the best possible performance on our dataset.
     \item Toggling post's title and body
-            
+
             To understand the impact of the title on classification, we measured the performance by training and testing on just the titles of the posts, just the bodies of the posts, and then with both title and body.
     \item Experiment with adding new features
-            
-            In order to see if we can extract even more information from the data, we added features for the sentiment value and readability score of every post in the dataset. 
-            
+
+            In order to see if we can extract even more information from the data, we added features for the sentiment value and readability score of every post in the dataset.
+
 \end{enumerate}
 
 In addition to the above, we also computed the confusion matrix and carried out qualitative analysis by computing the feature importance for our models.
@@ -372,7 +397,15 @@ We, therefore, have achieved our goals that we set in the project proposal.
 
 \section{Conclusions}
 
-TODO
+Overall, we were able to get good results on the RSPCT dataset, which supports our hypothesis that one of the main bottlenecks in large text classification tasks is the sparsity of examples for labels. All three models were clearly able to learn over the dataset and curiously produced very similar results for the top-5 classification accuracy. Future work might focus on either increasing the accuracy on this dataset using better model and more tuning or aggregating such a large number of examples per label for other tasks (perhaps using Reddit itself). Another question to answer is whether adding more than 1000 examples per label might improve accuracy even further or whether the benefits would taper off.
+
+Our experiments on the title and body showed us that as few as 7 words could allow a reasonably-high degree of accuracy even with 1000 labels. Our investigation of the feature importance shows us the strengths of the models and points to clear steps for future work. Finally, our analysis of the confusion matrix points to the most-confused subreddits, which could inform future work in this area.
+
+TODO: Need at least as many citations as the proposal.
+
+\section{Acknowledgements}
+
+We would like to thank Professor Ming Yin for her suggestion about using a confusion matrix for pinpointing the subreddits that frequently confused our model.
 
 \section{Team Member Contributions}
 
