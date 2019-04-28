@@ -300,6 +300,9 @@ We trained the CNN for a maximum of 10 epochs over several days and obtained the
 TODO
 
 \section{Further Experiments}
+
+TODO: Order should be 1. toggle title and body; 2. feature importance; 3. sentiment; 4. confusion matrix.
+
 \subsection{Confusion Matrix}
 
 To analyze which subreddits are frequently mispredicted, we look at the confusion matrix. As the 1000x1000 matrix for all the labels was hard to read, we have zoomed in on the subreddits that were most frequently confused.
@@ -326,6 +329,20 @@ Again, since the matrix is quite sparse it is hard to show them on the same plot
 \centering
 \includegraphics[width=\linewidth]{../plots/confusion-matrix-true-label-vs-most-confused-label.png}
 \caption{}
+\end{figure}
+
+To get a better idea of what confuses the model, we look at two concrete subreddits: r/hiking and r/backpacking. If we compare their most important features (figures TODO and TODO), we find that many of them are the same, such as ``trip'', ``day'', ``plan'', ``trail'', and ``camp''. This might be an inherent limitation of the dataset, because these are not well-separated subreddits and we may not be able to distinguish them given the posts alone.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../coefficients-hiking-dim-393.png}
+\caption{TODO}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{../coefficients-backpacking-dim-78.png}
+\caption{TODO}
 \end{figure}
 
 \subsection{Toggle Title and Body}
