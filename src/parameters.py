@@ -7,10 +7,10 @@ IS_DEBUGGING_ON = False
 # experiment_name = '1k-rows-300-dim'
 # experiment_name = '10k-rows-300-dim'
 # experiment_name = '50k-rows-10-epochs'
-# experiment_name = '100k-rows-10-epochs'
+experiment_name = '100k-rows-10-epochs'
 # experiment_name = '1M-rows-10-epochs'
 # experiment_name = '1M-rows-2-epochs-300-dim'
-experiment_name = '1M-rows-10-epochs-300-dim'
+# experiment_name = '1M-rows-10-epochs-300-dim'
 # CNN_mode = 'train-from-scratch'
 CNN_mode = 'train-from-scratch-multi-channel'
 
@@ -22,7 +22,6 @@ MODEL_DUMP_DIR = 'models'
 
 # DATASET_DIR = 'data'
 DATASET_DIR = '/homes/sriniv68/scratch/Downloads/Data-Mining-Model-Dumps'
-DATA_FILE_NAME = 'rspct_preprocessed_stemmed.tsv'
 
 EMBEDDING_DIM = 100
 MAX_SEQUENCE_LENGTH = 1000
@@ -39,8 +38,8 @@ TRAINING_FRACTION_LIST = [1.0]
 NB_ALPHA = 0.1
 # LR_C = 1e-4
 # LR_C = 1e-2
-# LR_C = 1 # Default
-LR_C = 1e2
+LR_C = 1 # Default
+# LR_C = 1e2
 # LR_C = 1e4
 
 class PostFieldsUsed(enum.Enum):
@@ -53,8 +52,8 @@ POST_FIELDS_USED_LIST = [PostFieldsUsed.both_title_and_body]
 #                          PostFieldsUsed.only_body,
 #                          PostFieldsUsed.both_title_and_body]
 
-# TRADITIONAL_MODEL_NAME = 'LR'
-TRADITIONAL_MODEL_NAME = 'NBC'
+TRADITIONAL_MODEL_NAME = 'LR'
+# TRADITIONAL_MODEL_NAME = 'NBC'
 # TRADITIONAL_MODEL_NAME = 'LR_CV'
 
 # SHOULD_SAVE_MODEL = True
@@ -67,6 +66,14 @@ SHOULD_SAVE_TOKENIZER = False
 # HAVE_FEW_FEATURES = True
 HAVE_FEW_FEATURES = False
 
+IS_SENTIMENT_READABILITY_ON = True
+# IS_SENTIMENT_READABILITY_ON = False
+
+if IS_SENTIMENT_READABILITY_ON:
+    DATA_FILE_NAME = 'rspct_preprocessed_sentiment_readability_stemmed.tsv'
+else:
+    DATA_FILE_NAME = 'rspct_preprocessed_stemmed.tsv'
+
 MAX_NUM_WORDS = 20000
 if TRADITIONAL_MODEL_NAME == 'NBC':
     if HAVE_FEW_FEATURES:
@@ -75,7 +82,7 @@ if TRADITIONAL_MODEL_NAME == 'NBC':
         MAX_NUM_WORDS = 100000
 
 if TRADITIONAL_MODEL_NAME == 'LR':
-    MAX_NUM_WORDS = 30000
+    MAX_NUM_WORDS = 20000
 
 if experiment_name == '100k-rows-10-epochs':
     NUM_EPOCHS = 10

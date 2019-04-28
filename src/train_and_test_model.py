@@ -14,7 +14,7 @@ def get_model(name='NBC'):
         model = MultinomialNB(alpha=NB_ALPHA)
     elif name == 'LR':
         print(f'LR_C: {LR_C}', flush=True)
-        model = LogisticRegression(solver='sag', C=LR_C)
+        model = LogisticRegression(solver='sag', C=LR_C, verbose=1)
     elif name == 'LR_CV':
         model = LogisticRegressionCV(cv=5, random_state=0,
                                      max_iter=2,

@@ -5,6 +5,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.feature_selection import chi2, SelectKBest
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
+import scipy.sparse
 from parameters import *
 from joblib import dump, load
 from utils import get_model_save_name
@@ -87,5 +88,11 @@ def get_vectorized_training_and_test_set(dataset_name='data/rspct.tsv',
     if SHOULD_SAVE_TOKENIZER:
         dump(tf_idf_vectorizer, get_model_save_name(basename='tfidf-vectorizer', suffix='joblib'))
     X_test = tf_idf_vectorizer.transform(X_test)
+
+    if IS_SENTIMENT_READABILITY_ON:
+        sr_train, sr_test, sr_y_train, sr_y_test = train_test_split(rspct_df[['sentiment_val', 'readability_score']], rspct_df['subreddit'],
+                                                                    test_size=TEST_FRACTION, random_state=42)
+        X_train = scipy.sparse.hstack((X_train, sr_train[['sentiment_val', 'readability_score']])).tocsr()
+        X_test = scipy.sparse.hstack((X_test, sr_test[['sentiment_val', 'readability_score']])).tocsr()
 
     return (X_train, y_train, X_test, y_test)
