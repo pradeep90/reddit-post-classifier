@@ -3437,3 +3437,37 @@ precision@5 = 0.0283
 
 Saved confusion matrix to models/LR-confusion-matrix-10-epochs-100000-rows-2019-04-28-07:12:01-105464.txt
 End: Sun Apr 28 07:12:02 EDT 2019
+
+Start: Sun Apr 28 14:27:38 EDT 2019
+LR_C: 1
+Saved label encoder to models/label-encoder-10-epochs-1000-rows-300-dim-2019-04-28-14:27:55-187118.joblib
+model LogisticRegression(C=1, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='warn',
+          n_jobs=None, penalty='l2', random_state=None, solver='sag',
+          tol=0.0001, verbose=1, warm_start=False)
+DATASET_SIZE: 1000
+experiment_name: 1k-rows-300-dim
+post_field_used: PostFieldsUsed.both_title_and_body
+MAX_NUM_WORDS: 20000
+DATA_FILE_NAME: rspct_preprocessed_stemmed.tsv
+VALIDATION_FRACTION: 0.2
+validation_set_size: 180
+training_fraction: 1.0
+training_set_size: 720
+
+
+Training set:
+precision@1 = 0.7900555555555555
+precision@3 = 0.9380138888888889
+precision@5 = 0.9681805555555556
+Validation set:
+precision@1 = 0.5883333333333334
+precision@3 = 0.753
+precision@5 = 0.8054444444444444
+Test set:
+precision@1 = 0.5854
+precision@3 = 0.7539
+precision@5 = 0.8079
+
+Saved confusion matrix to models/LR-confusion-matrix-10-epochs-100000-rows-2019-04-28-14:53:11-172555.txt
+End: Sun Apr 28 14:53:12 EDT 2019
